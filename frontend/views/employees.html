@@ -7,7 +7,7 @@
     <!-- DataTales Example -->  
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h6 class="m-0 font-weight-bold text-primary">Staff</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Employees</h6>
         <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#addRoomModal">
                         <i class="fas fa-plus fa-sm text-white-50"></i> Add Employee
                     </a>
@@ -15,17 +15,29 @@
     </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTableRooms" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTableEmployees" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>Building</th>
-                            <th>Type</th>
-                            <th>Seat Capacity</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Faculty</th>
                             <th class="actions-column">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>Haris Skeledzija</td>
+                            <td>haris.skeledzija@stu.ibu.edu.ba</td>
+                            <td>Admin</td>
+                            <td>FENMS</td>
+                            <td class="actions-column">
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " data-toggle="modal" data-target="#editRoomModal">
+                                <i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#removeRoomModal">
+                                <i class="fas fa-times fa-sm text-white-50"></i> Remove</a>
+                            </td>
+                        </tr>
                         
                     </tbody>
                 </table>                        
@@ -155,7 +167,6 @@
         </div>
     </div>
 </div>
-
 
     <!-- Page level plugins -->
     <script src="/frontend/assets/vendor/datatables/jquery.dataTables.min.js"></script>
