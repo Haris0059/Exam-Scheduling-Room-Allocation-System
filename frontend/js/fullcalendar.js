@@ -1,14 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+window.initFullCalendar = function(selector) {
+    var id = selector || 'calendar';
+    var calendarEl = document.getElementById(id);
+    if (!calendarEl) return;
+
+    // destroy existing instance if present
+    if (calendarEl._fcInstance) {
+        try { calendarEl._fcInstance.destroy(); } catch(e) { /* ignore */ }
+        calendarEl._fcInstance = null;
+    }
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
         headerToolbar: {
             right: 'prev,today,next',
             center: 'title',
-            left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            left: 'timeGridWeek,timeGridDay,listWeek'
         },
         buttonText: {
-            month: 'Month',
             week: 'Week',
             day: 'Day',
             list: 'List',
@@ -20,12 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
             end: '2025-10-17T14:00'
         }],
         businessHours: {
-            daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+            daysOfWeek: [1,2,3,4,5],
             startTime: '09:00',
-            endTime: '18:00',
+            endTime: '18:00'
         },
-        hiddenDays: [0, 6] // hide Sunday (0), Friday (5), Saturday (6)
+        hiddenDays: [0,6],
+        slotMinTime: '09:00:00',
+        slotMaxTime: '18:00:00'
     });
 
     calendar.render();
-});
+    calendarEl._fcInstance = calendar; 
+};

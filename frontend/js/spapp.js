@@ -22,6 +22,12 @@ $(function(){
                     // toggle active class on sidebar nav items
                     $(".navbar-nav .nav-item").removeClass('active');
                     $(".navbar-nav .nav-link[href='#" + viewId + "']").closest('.nav-item').addClass('active');
+
+                    // initialize view-specific widgets
+                    if (viewId === 'exams' && typeof window.initFullCalendar === 'function') {
+                        // allow a tiny delay to ensure the view DOM is attached
+                        setTimeout(function(){ window.initFullCalendar('calendar'); }, 0);
+                    }
                 }
             });
         })(id);
