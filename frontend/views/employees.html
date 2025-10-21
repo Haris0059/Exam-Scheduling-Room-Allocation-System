@@ -1,0 +1,194 @@
+<!-- Custom styles for this page -->
+<link href="/frontend/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- DataTales Example -->  
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Employees</h6>
+        <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#addEmployeeModal">
+                        <i class="fas fa-plus fa-sm text-white-50"></i> Add Employee
+                    </a>
+        
+    </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTableEmployees" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Faculty</th>
+                            <th class="actions-column">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Haris Skeledzija</td>
+                            <td>haris.skeledzija@stu.ibu.edu.ba</td>
+                            <td>Admin</td>
+                            <td>FENMS</td>
+                            <td class="actions-column">
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " data-toggle="modal" data-target="#editEmployeeModal">
+                                <i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#removeEmployeeModal">
+                                <i class="fas fa-times fa-sm text-white-50"></i> Remove</a>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>                        
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Edit Employee Modal-->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold text-primary" id="exampleModalLabel">Edit Employee</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <div class="card-body p-0">
+                    <div class="col-lg-12">
+                        <form class="user">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="code"
+                                        placeholder="First Name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" id="building"
+                                        placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="type"
+                                        placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="type"
+                                        placeholder="Role">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="type"
+                                        placeholder="Faculty">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" id="seatCapacity"
+                                        placeholder="Department">
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2" data-dismiss="modal">
+                                <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-pencil-alt fa-sm text-white-50"></i> Change</a>
+                            </div>           
+                        </form>   
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Employee Modal-->
+<div class="modal fade" id="removeEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this employee?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">This action is permanent if you press "Remove" the employee will be permanently removed.</div>
+            <div class="modal-footer">
+                <a class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2" data-dismiss="modal">
+                <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                <i class="fas fa-times fa-sm text-white-50"></i> Remove</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Employee Modal-->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <div class="card-body p-0">
+                    <div class="col-lg-12">
+                        <form class="user">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="code"
+                                        placeholder="First Name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" id="building"
+                                        placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="type"
+                                        placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="type"
+                                        placeholder="Role">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="type"
+                                        placeholder="Faculty">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" id="seatCapacity"
+                                        placeholder="Department">
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2" data-dismiss="modal">
+                                <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
+                                <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+                            </div>          
+                        </form>   
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+
