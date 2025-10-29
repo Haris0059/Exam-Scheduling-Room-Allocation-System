@@ -34,8 +34,6 @@ CREATE TABLE `coordinates` (
 -- Dumping data for table `coordinates`
 --
 
-LOCK TABLES `coordinates` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `course_enrollments`
@@ -62,8 +60,6 @@ CREATE TABLE `course_enrollments` (
 -- Dumping data for table `course_enrollments`
 --
 
-LOCK TABLES `course_enrollments` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `course_professors`
@@ -90,8 +86,6 @@ CREATE TABLE `course_professors` (
 -- Dumping data for table `course_professors`
 --
 
-LOCK TABLES `course_professors` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `courses`
@@ -119,8 +113,6 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-LOCK TABLES `courses` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `departments`
@@ -142,8 +134,6 @@ CREATE TABLE `departments` (
 -- Dumping data for table `departments`
 --
 
-LOCK TABLES `departments` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `employees`
@@ -173,8 +163,6 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-LOCK TABLES `employees` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `exam_enrollments`
@@ -199,8 +187,6 @@ CREATE TABLE `exam_enrollments` (
 -- Dumping data for table `exam_enrollments`
 --
 
-LOCK TABLES `exam_enrollments` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `exam_rooms`
@@ -224,8 +210,6 @@ CREATE TABLE `exam_rooms` (
 -- Dumping data for table `exam_rooms`
 --
 
-LOCK TABLES `exam_rooms` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `exams`
@@ -250,8 +234,6 @@ CREATE TABLE `exams` (
 -- Dumping data for table `exams`
 --
 
-LOCK TABLES `exams` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `faculty`
@@ -270,8 +252,6 @@ CREATE TABLE `faculty` (
 -- Dumping data for table `faculty`
 --
 
-LOCK TABLES `faculty` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `rooms`
@@ -286,6 +266,7 @@ CREATE TABLE `rooms` (
   `type` enum('standard','it','lecturehall') DEFAULT NULL,
   `seat_capacity` int(10) unsigned NOT NULL,
   `coordinate_id` int(10) unsigned NOT NULL,
+  `xyz` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`xyz`)),
   PRIMARY KEY (`id`),
   KEY `coordinate_id` (`coordinate_id`),
   CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`coordinate_id`) REFERENCES `coordinates` (`id`)
@@ -296,8 +277,6 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
-LOCK TABLES `rooms` WRITE;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `students`
@@ -325,8 +304,6 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-LOCK TABLES `students` WRITE;
-UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'esras'
@@ -341,4 +318,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-29 14:44:48
+-- Dump completed on 2025-10-29 18:55:26
