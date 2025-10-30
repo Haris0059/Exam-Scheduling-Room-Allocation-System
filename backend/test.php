@@ -1,6 +1,8 @@
 <?php
 
-$student_dao = new StudentDaov4();
+require_once __DIR__ . '/dao/StudentDao.php';
+
+$student_dao = new StudentDao();
 $students = $student_dao->get_all();
 print_r($students);
 $student = $student_dao->get_by_id(1);
