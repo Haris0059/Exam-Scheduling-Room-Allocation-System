@@ -11,11 +11,6 @@ class CourseDao extends BaseDao
         parent::__construct($this->table_name);
     }
 
-    public function get_all()
-    {
-        return $this->query('SELECT * FROM ' . $this->table_name, []);
-    }
-
     public function get_by_name($name)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE name %LIKE% :name', ['name' => $name]);

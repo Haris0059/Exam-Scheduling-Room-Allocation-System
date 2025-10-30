@@ -88,4 +88,9 @@ class BaseDao
         $stmt->bindValue(':id', $id); #prevent SQL injection
         $stmt->execute();
     }
+
+    public function get_all() {
+        return $this->query('SELECT * FROM ' . $this->table_name, []);
+        
+    }
 }
