@@ -11,9 +11,19 @@ class CourseDao extends BaseDao
         parent::__construct($this->table_name);
     }
 
+    public function get_by_code($code)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE code %LIKE% :code', ['code' => $code]);
+    }
+
     public function get_by_name($name)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE name %LIKE% :name', ['name' => $name]);
+    }
+
+    public function get_by_academic_level($academic_level)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE academic_level=:academic_level', ['academic_level' => $academic_level]);
     }
 
     public function get_by_faculty($faculty_id)
