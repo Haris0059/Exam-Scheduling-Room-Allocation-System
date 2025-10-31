@@ -16,14 +16,40 @@ class EmployeeDao extends BaseDao
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
     }
 
+    public function get_by_first_name($first_name)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE first_name=:first_name', ['first_name' => $first_name]);
+        
+    }
+
+    public function get_by_last_name($last_name)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE last_name=:last_name', ['last_name' => $last_name]);
+    }
+
     public function get_by_email($email)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE email=:email', ['email' => $email]);
     }
 
+    public function get_by_role($role)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE role=:role', ['role' => $role]);
+    }
+
+    public function get_by_status($status)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE status=:status', ['status' => $status]);
+    }
+
     public function get_by_department($department_id)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
+    }
+
+    public function get_by_faculty($faculty_id)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE faculty_id=:faculty_id', ['faculty_id' => $faculty_id]);
     }
 
     public function count_employees_paginated($search)
