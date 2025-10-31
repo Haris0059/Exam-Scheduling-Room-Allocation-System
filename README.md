@@ -3,8 +3,8 @@
 <br />
 <div align="center">
   <h1 align="center">Exam Scheduling & Room Allocation System</h1>
-
 </div>
+<br />
 
 
 
