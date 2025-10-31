@@ -2,11 +2,8 @@
 
 <br />
 <div align="center">
-  <h3 align="center">Exam Scheduling & Room Allocation System</h3>
+  <h1 align="center">Exam Scheduling & Room Allocation System</h1>
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-  </p>
 </div>
 
 
