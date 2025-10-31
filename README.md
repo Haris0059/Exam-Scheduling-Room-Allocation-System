@@ -20,6 +20,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#database-schema">Database Schema</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -44,6 +45,9 @@ Exam Scheduling  and Room Allocation System is a software system that efficientl
 ## Getting Started
 
 For this project you will need to use XAMPP with MySQL Server and Apache2, also it will be nice if you have some IDE such as Visual Studio Code
+
+### Database Schema 
+![alt text](ER_Diagram.png)
 
 ### Installation
 
