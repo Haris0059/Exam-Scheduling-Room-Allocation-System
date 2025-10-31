@@ -7,10 +7,6 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/Haris0059/Exam-Scheduling-Room-Allocation-System/">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
   <h3 align="center">Exam Scheduling & Room Allocation System</h3>
 
   <p align="center">
