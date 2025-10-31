@@ -1,6 +1,5 @@
 <a id="readme-top"></a>
 
-<br />
 <div align="center">
   <h1 align="center">Exam Scheduling & Room Allocation System</h1>
 </div>
@@ -9,7 +8,6 @@
 
 
 <!-- TABLE OF CONTENTS -->
-<br />
 <details>
   <summary>Table of Contents</summary>
   <ol>
