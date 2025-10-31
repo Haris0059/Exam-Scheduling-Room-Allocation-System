@@ -9,6 +9,7 @@
 
 
 <!-- TABLE OF CONTENTS -->
+<br />
 <details>
   <summary>Table of Contents</summary>
   <ol>
