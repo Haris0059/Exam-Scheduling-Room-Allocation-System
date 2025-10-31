@@ -11,7 +11,6 @@ class RoomDao extends BaseDao
         parent::__construct($this->table_name);
     }
 
-
     public function get_by_id($id)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
@@ -27,12 +26,22 @@ class RoomDao extends BaseDao
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE type=:type', ['type' => $type]);
     }
 
+    public function get_by_seat_capacity($seat_capacity)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE seat_capacity=:seat_capacity', ['seat_capacity' => $seat_capacity]);
+    }
+
+    public function get_by_coordinates($coordinates)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE coordinates=:coordinates', ['coordinates' => $coordinates]);
+    }
+
     public function count_rooms_paginated($search)
     {
         $query = "SELECT COUNT(*) AS count
                   FROM " . $this->table_name . "
-                  WHERE LOWER(name) LIKE CONCAT('%', :search, '%') OR 
-                        LOWER(email) LIKE CONCAT('%', :search, '%');";
+                  WHERE LOWER(code) LIKE CONCAT('%', :search, '%') OR 
+                        LOWER(type) LIKE CONCAT('%', :search, '%');";
         return $this->query_unique($query, [
             'search' => $search
         ]);
@@ -42,8 +51,8 @@ class RoomDao extends BaseDao
     {
         $query = "SELECT *
                   FROM " . $this->table_name . "
-                  WHERE LOWER(name) LIKE CONCAT('%', :search, '%') OR 
-                        LOWER(email) LIKE CONCAT('%', :search, '%')
+                  WHERE LOWER(code) LIKE CONCAT('%', :search, '%') OR 
+                        LOWER(type) LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
         return $this->query($query, [
