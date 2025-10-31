@@ -30,7 +30,8 @@ class StudentDao extends BaseDao
     {
         $query = "SELECT COUNT(*) AS count
                   FROM " . $this->table_name . "
-                  WHERE LOWER(name) LIKE CONCAT('%', :search, '%') OR 
+                  WHERE LOWER(first_name) LIKE CONCAT('%', :search, '%') OR 
+                        LOWER(last_name) LIKE CONCAT('%', :search, '%') OR
                         LOWER(email) LIKE CONCAT('%', :search, '%');";
         return $this->query_unique($query, [
             'search' => $search
@@ -41,7 +42,8 @@ class StudentDao extends BaseDao
     {
         $query = "SELECT *
                   FROM " . $this->table_name . "
-                  WHERE LOWER(name) LIKE CONCAT('%', :search, '%') OR 
+                  WHERE LOWER(first_name) LIKE CONCAT('%', :search, '%') OR 
+                        LOWER(last_name) LIKE CONCAT('%', :search, '%') OR
                         LOWER(email) LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
