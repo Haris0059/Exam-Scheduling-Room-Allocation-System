@@ -61,7 +61,7 @@ Exam Scheduling  and Room Allocation System is a software system that efficientl
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![HTML5][HTML]][JQuery-url]
+* [![HTML5][JQeury.com]][JQuery-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 
