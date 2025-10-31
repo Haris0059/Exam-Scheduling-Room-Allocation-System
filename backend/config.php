@@ -21,11 +21,11 @@ class Config
     }
     public static function DB_PASSWORD()
     {
-        return '';
+        return 'testpassword';
     }
     public static function DB_HOST()
     {
-        return '127.0.0.1';
+        return 'localhost';
     }
 
     public static function JWT_SECRET() 
