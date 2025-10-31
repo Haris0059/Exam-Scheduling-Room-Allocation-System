@@ -63,8 +63,6 @@ For this project you will need to use XAMPP with MySQL Server and Apache2, also 
   <img src="https://contrib.rocks/image?repo=Haris0059/Exam-Scheduling-Room-Allocation-System" />
 </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- LICENSE -->
 ## License
 
