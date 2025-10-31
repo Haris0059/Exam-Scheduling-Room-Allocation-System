@@ -16,12 +16,17 @@ class ExamDao extends BaseDao
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
     }
 
-    public function get_by_code($code)
+    public function get_by_date($date)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE code=:code', ['code' => $code]);
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE date=:date', ['date' => $date]);
     }
 
-    public function get_by_department($type)
+    public function get_by_department($department_id)
+    {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
+    }
+
+    public function get_by_type($type)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE type=:type', ['type' => $type]);
     }
