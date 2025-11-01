@@ -89,6 +89,9 @@ class BaseDao
         $stmt->execute();
     }
 
+    /**
+     * Method used to get all entities from the selected table
+     */
     public function get_all() {
         return $this->query('SELECT * FROM ' . $this->table_name, []);
         
