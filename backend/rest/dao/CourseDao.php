@@ -41,7 +41,7 @@ class CourseDao extends BaseDao
         $query = "SELECT COUNT(*) AS count
                   FROM " . $this->table_name . "
                   WHERE LOWER(name) LIKE CONCAT('%', :search, '%') OR 
-                        LOWER(email) LIKE CONCAT('%', :search, '%');";
+                        LOWER(code) LIKE CONCAT('%', :search, '%')";
         return $this->query_unique($query, [
             'search' => $search
         ]);
@@ -52,7 +52,7 @@ class CourseDao extends BaseDao
         $query = "SELECT *
                   FROM " . $this->table_name . "
                   WHERE LOWER(name) LIKE CONCAT('%', :search, '%') OR 
-                        LOWER(email) LIKE CONCAT('%', :search, '%')
+                        LOWER(code) LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
         return $this->query($query, [
