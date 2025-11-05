@@ -28,18 +28,6 @@ class RoomService extends BaseService
         return $this->dao->update($id, $data);
     }
 
-    public function validationCheck($data) {
-        if (empty($data['code'])) {
-            throw new Exception("Room code is required.");
-        } else if (empty($data['type'])) {
-            throw new Exception("Room type is required.");
-        } else if (empty($data['seat_capacity'])) {
-            throw new Exception("Seat capacity is required.");
-        } else if (empty($data['coordinates'])) {
-            throw new Exception("Coordinates are required.");
-        }
-    }
-
     public function removeRoom($id)
     {
         if (empty($id) || !is_numeric($id) || $id <= 0) {
@@ -51,4 +39,15 @@ class RoomService extends BaseService
         return $this->dao->delete($id);
     }
 
+    public function validationCheck($data) {
+        if (empty($data['code'])) {
+            throw new Exception("Room code is required.");
+        } else if (empty($data['type'])) {
+            throw new Exception("Room type is required.");
+        } else if (empty($data['seat_capacity'])) {
+            throw new Exception("Seat capacity is required.");
+        } else if (empty($data['coordinates'])) {
+            throw new Exception("Coordinates are required.");
+        }
+    }
 }
