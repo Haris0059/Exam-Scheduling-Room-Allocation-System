@@ -92,8 +92,12 @@ class BaseDao
     /**
      * Method used to get all entities from the selected table
      */
-    public function get_all() {
+    public function getAll() {
         return $this->query('SELECT * FROM ' . $this->table_name, []);
         
+    }
+
+    public function getById($id) {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
     }
 }

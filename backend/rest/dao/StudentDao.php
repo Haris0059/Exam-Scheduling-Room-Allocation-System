@@ -11,22 +11,17 @@ class StudentDao extends BaseDao
         parent::__construct($this->table_name);
     }
 
-    public function get_by_id($id)
-    {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
-    }
-
-    public function get_by_email($email)
+    public function getByEmail($email)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE email=:email', ['email' => $email]);
     }
 
-    public function get_by_department($department_id)
+    public function getByDepartment($department_id)
     {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
     }
 
-    public function count_students_paginated($search)
+    public function countStudentsPaginated($search)
     {
         $query = "SELECT COUNT(*) AS count
                   FROM " . $this->table_name . "
@@ -38,7 +33,7 @@ class StudentDao extends BaseDao
         ]);
     }
 
-    public function get_students_paginated($offset, $limit, $search, $order_column, $order_direction)
+    public function getStudentsPaginated($offset, $limit, $search, $order_column, $order_direction)
     {
         $query = "SELECT *
                   FROM " . $this->table_name . "
