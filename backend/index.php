@@ -2,8 +2,8 @@
 require 'vendor/autoload.php'; //run autoloader
 
 
-Flight::route('/api', function(){  //define route and define function to handle request
-   echo 'Hello world!';
+Flight::route('/', function(){  //define route and define function to handle request
+   echo 'Exam Scheduling and Room Allocation System API is running!';
 });
 
 
