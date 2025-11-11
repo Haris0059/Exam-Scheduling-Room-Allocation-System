@@ -38,8 +38,7 @@ class BaseDao
     }
 
     /**
-     * Method used to get add entity to database
-     * string $first_name: First name is the first name of the course
+     * Method used to add entity to database
      */
     public function add($entity)
     {

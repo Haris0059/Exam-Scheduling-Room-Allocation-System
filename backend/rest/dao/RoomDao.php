@@ -54,4 +54,44 @@ class RoomDao extends BaseDao
             'search' => $search
         ]);
     }
+
+
+
+    public function findAvailableRoomsByType($date, $start_time, $end_time, $required_room_type) {
+        
+        $sql = "
+            SELECT
+                r.id AS room_id,
+                r.type,
+                r.coord_z AS floor,
+                r.seat_capacity,
+                r.coord_x,
+                r.coord_y
+            FROM
+                rooms r
+            WHERE
+                r.type = ?
+                AND NOT EXISTS (
+                    SELECT 1
+                    FROM exam_rooms er
+                    JOIN exams e ON er.exam_id = e.id
+                    WHERE er.room_id = r.id
+                      AND e.date = ?
+                      AND (e.start < ? AND e.end > ?)  -- overlap check
+                )
+            ORDER BY
+                r.coord_z, r.seat_capacity DESC;
+        ";
+
+        // Parameters for the query in order
+        $params = [
+            $required_room_type,
+            $date,
+            $end_time,   // (e.start < $end_time)
+            $start_time  // (e.end > $start_time)
+        ];
+
+        // This query method should exist in your BaseDao
+        return $this->query($sql, $params);
+    }
 }
