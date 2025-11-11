@@ -18,8 +18,8 @@ class BaseService {
         return $this->dao->getById($id);
     }
     
-    public function create($data) {
-        return $this->dao->insert($data);
+    public function add($data) {
+        return $this->dao->add($data);
     }
     
     public function update($id, $data) {
