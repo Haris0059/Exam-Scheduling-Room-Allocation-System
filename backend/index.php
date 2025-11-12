@@ -1,8 +1,26 @@
 <?php
 require 'vendor/autoload.php'; //run autoloader
 
+// All services
+require_once 'services/BaseService.php';
+require_once 'services/CourseService.php';
+require_once 'services/EmployeeService.php';
+require_once 'services/ExamService.php';
+require_once 'services/RoomAllocationService.php';
+require_once 'services/RoomService.php';
+require_once 'services/StudentService.php';
 
-Flight::route('/', function(){  //define route and define function to handle request
+// All routes
+//require_once 'rest/routes/BaseRoute.php';
+require_once 'rest/routes/CourseRoute.php';
+//require_once 'rest/routes/EmployeeRoute.php';
+//require_once 'rest/routes/ExamRoute.php';
+//require_once 'rest/routes/RoomAllocationRoute.php';
+//require_once 'rest/routes/RoomRoute.php';
+//require_once 'rest/routes/StudentRoute.php';
+
+// Default route
+Flight::route('/', function(){  
    echo 'Exam Scheduling and Room Allocation System API is running!';
 });
 
