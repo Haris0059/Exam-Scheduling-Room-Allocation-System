@@ -1,9 +1,9 @@
 <?php
 require 'vendor/autoload.php'; //run autoloader
 
-require_once __DIR__ . '/services/CourseEnrollmentService.php';
+require_once __DIR__ . '/rest/services/CourseEnrollmentService.php';
 Flight::register('courseEnrollmentService', 'CourseEnrollmentService');
-require_once __DIR__ . '/routes/CourseEnrollmentRoutes.php';
+require_once __DIR__ . '/rest/routes/CourseEnrollmentRoutes.php';
 
 // Default route
 Flight::route('/', function(){  
