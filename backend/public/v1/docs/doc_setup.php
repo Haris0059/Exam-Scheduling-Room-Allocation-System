@@ -14,7 +14,7 @@
 
 /**
  * @OA\Server(
- *      url="http://localhost/backend/rest",
+ *      url="http://localhost/Exam-Scheduling-Room-Allocation-System/backend/rest",
  *      description="API server"
  * )
 */
