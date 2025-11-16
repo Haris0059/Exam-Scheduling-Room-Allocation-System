@@ -107,7 +107,9 @@ Flight::route('POST /courses', function () {
         $new_course = Flight::courseService()->create($data);
         Flight::json($new_course, 201);
     } catch (Exception $e) {
-        Flight::json(['errors' => $e->getMessage()], $e->getCode() ?: 500);
+        // Small tip: you used 'errors' here, but 'error' in other routes.
+        // I changed it to 'error' to be consistent.
+        Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
     }
 });
 
@@ -133,7 +135,7 @@ Flight::route('POST /courses', function () {
  * )
  * ),
  * @OA\Response(response=200, description="Course updated successfully"),
- * @OA\Response(response=404, description="Course not found")
+ * @OA\Response(response=444, description="Course not found")
  * )
  */
 Flight::route('PUT /courses/@id', function ($id) {
@@ -220,4 +222,3 @@ Flight::route('GET /courses/department/@id', function ($id) {
         Flight::json(['error' => $e->getMessage()], 500);
     }
 });
-?>

@@ -27,13 +27,13 @@ Flight::register('roomService', 'RoomService');
 require_once __DIR__ . '/rest/services/StudentService.php';
 Flight::register('studentService', 'StudentService');
 
-require_once __DIR__ . '/rest/routes/CourseEnrollmentRoute.php';
-require_once __DIR__ . '/rest/routes/CourseRoute.php';
-require_once __DIR__ . '/rest/routes/EmployeeRoute.php';
-require_once __DIR__ . '/rest/routes/ExamRoute.php';
-require_once __DIR__ . '/rest/routes/RoomAllocationRoute.php';
-require_once __DIR__ . '/rest/routes/RoomRoute.php';
-require_once __DIR__ . '/rest/routes/StudentRoute.php';
+require_once __DIR__ . '/rest/routes/course_enrollment_route.php';
+require_once __DIR__ . '/rest/routes/course_route.php';
+require_once __DIR__ . '/rest/routes/employee_route.php';
+require_once __DIR__ . '/rest/routes/exam_route.php';
+require_once __DIR__ . '/rest/routes/room_allocation_route.php';
+require_once __DIR__ . '/rest/routes/room_route.php';
+require_once __DIR__ . '/rest/routes/student_route.php';
 
 
 // Default route

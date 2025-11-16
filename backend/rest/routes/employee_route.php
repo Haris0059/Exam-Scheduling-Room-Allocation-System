@@ -234,4 +234,3 @@ Flight::route('GET /employees/faculty/@id', function ($id) {
         Flight::json(['error' => $e->getMessage()], 500);
     }
 });
-?>
