@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -41,7 +41,5 @@ Flight::route('/', function(){
    echo 'Exam Scheduling and Room Allocation System API is running!';
 });
 
-// Add this line to tell Flight its base path
-Flight::set('flight.base_url', '/Exam-Scheduling-Room-Allocation-System/backend');
 
 Flight::start();  //start FlightPHP
