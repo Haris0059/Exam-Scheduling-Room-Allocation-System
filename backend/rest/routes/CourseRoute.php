@@ -1,4 +1,3 @@
- * @OA\Parameter(name="limit", in="query", description="Pagination limit", @OA\Schema(type="integer")),
 <?php
 
 /**
