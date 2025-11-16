@@ -20,7 +20,7 @@
  */
 Flight::route('GET /enrollments/course/@id/count', function ($id) {
     try {
-        $count = Flight::courseEnrollmentService()->getCountByCourse($id);
+        $count = Flight::course_enrollment_service()->getCountByCourse($id);
         
         // Return a clean JSON object, not just a number
         Flight::json([
@@ -56,7 +56,7 @@ Flight::route('GET /enrollments/course/@id/count', function ($id) {
 Flight::route('POST /enrollments', function () {
     try {
         $data = Flight::request()->data->getData();
-        $new_enrollment = Flight::courseEnrollmentService()->create($data);
+        $new_enrollment = Flight::course_enrollment_service()->add($data);
         Flight::json($new_enrollment, 201);
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
@@ -74,7 +74,7 @@ Flight::route('POST /enrollments', function () {
  */
 Flight::route('GET /enrollments', function () {
     try {
-        $enrollments = Flight::courseEnrollmentService()->get_all();
+        $enrollments = Flight::course_enrollment_service()->getAll();
         Flight::json($enrollments, 200);
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], 500);
@@ -102,7 +102,7 @@ Flight::route('GET /enrollments', function () {
 Flight::route('PUT /enrollments/@id', function ($id) {
     try {
         $data = Flight::request()->data->getData();
-        $updated_enrollment = Flight::courseEnrollmentService()->update($id, $data);
+        $updated_enrollment = Flight::course_enrollment_service()->update($id, $data);
         
         if (!$updated_enrollment) {
             Flight::json(['error' => 'Enrollment not found'], 404);
@@ -127,7 +127,7 @@ Flight::route('PUT /enrollments/@id', function ($id) {
  */
 Flight::route('DELETE /enrollments/@id', function ($id) {
     try {
-        Flight::courseEnrollmentService()->delete($id);
+        Flight::course_enrollment_service()->delete($id);
         Flight::json(['message' => 'Enrollment deleted successfully'], 200);
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
