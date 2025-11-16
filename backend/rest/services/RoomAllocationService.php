@@ -208,3 +208,4 @@ class RoomAllocationService {
         return abs($roomA->x - $roomB->x) + abs($roomA->y - $roomB->y);
     }
 }
+?>
