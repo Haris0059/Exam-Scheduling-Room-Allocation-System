@@ -7,25 +7,25 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/rest/services/BaseService.php';
 
 require_once __DIR__ . '/rest/services/CourseEnrollmentService.php';
-Flight::register('courseEnrollmentService', 'CourseEnrollmentService');
+Flight::register('course_enrollment_service', 'CourseEnrollmentService');
 
 require_once __DIR__ . '/rest/services/CourseService.php';
-Flight::register('courseService', 'CourseService');
+Flight::register('course_service', 'CourseService');
 
 require_once __DIR__ . '/rest/services/EmployeeService.php';
-Flight::register('employeeService', 'EmployeeService');
+Flight::register('employee_service', 'EmployeeService');
 
 require_once __DIR__ . '/rest/services/ExamService.php';
-Flight::register('examService', 'ExamService');
+Flight::register('exam_service', 'ExamService');
 
 require_once __DIR__ . '/rest/services/RoomAllocationService.php';
-Flight::register('roomAllocationService', 'RoomAllocationService');
+Flight::register('room_allocation_service', 'RoomAllocationService');
 
 require_once __DIR__ . '/rest/services/RoomService.php';
-Flight::register('roomService', 'RoomService');
+Flight::register('room_service', 'RoomService');
 
 require_once __DIR__ . '/rest/services/StudentService.php';
-Flight::register('studentService', 'StudentService');
+Flight::register('student_service', 'StudentService');
 
 require_once __DIR__ . '/rest/routes/course_enrollment_route.php';
 require_once __DIR__ . '/rest/routes/course_route.php';

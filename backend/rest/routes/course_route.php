@@ -31,7 +31,7 @@ Flight::route('GET /courses', function () {
         $order_direction = Flight::request()->query['order_direction'] ?? 'ASC';
 
         // Call the new service method
-        $result = Flight::courseService()->getCoursesPaginated(
+        $result = Flight::course_service()->getCoursesPaginated(
             $offset,
             $limit,
             $search,
@@ -64,7 +64,7 @@ Flight::route('GET /courses', function () {
  */
 Flight::route('GET /courses/@id', function ($id) {
     try {
-        $course = Flight::courseService()->get_by_id($id);
+        $course = Flight::course_service()->getById($id);
         if (!$course) {
             Flight::json(['error' => 'Course not found'], 404);
         } else {
@@ -86,9 +86,11 @@ Flight::route('GET /courses/@id', function ($id) {
  * description="Course data",
  * @OA\JsonContent(
  * type="object",
- * required={"name", "code", "faculty_id", "department_id"},
- * @OA\Property(property="name", type="string", example="Web Programming"),
- * @OA\Property(property="code", type="string", example="CS308"),
+ * required={"name", "code", "ects", "academic_level", "faculty_id", "department_id"},
+ * @OA\Property(property="name", type="string", example="Paralell Programming"),
+ * @OA\Property(property="code", type="string", example="IT 2004"),
+ * @OA\Property(property="ects", type="integer", example=5),
+ * @OA\Property(property="academic_level", type="string", enum={"Bachelor", "Master", "Doctorate"}, example="Bachelor"),
  * @OA\Property(property="faculty_id", type="integer", example=1),
  * @OA\Property(property="department_id", type="integer", example=1)
  * )
@@ -101,14 +103,9 @@ Flight::route('POST /courses', function () {
     try {
         $data = Flight::request()->data->getData();
         
-        // You can add validation here from your CourseService if you have it
-        // e.g., Flight::courseService()->validateCourseData($data);
-
-        $new_course = Flight::courseService()->create($data);
+        $new_course = Flight::course_service()->add($data); 
         Flight::json($new_course, 201);
     } catch (Exception $e) {
-        // Small tip: you used 'errors' here, but 'error' in other routes.
-        // I changed it to 'error' to be consistent.
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
     }
 });
@@ -131,17 +128,19 @@ Flight::route('POST /courses', function () {
  * @OA\JsonContent(
  * type="object",
  * @OA\Property(property="name", type="string", example="Advanced Web Programming"),
- * @OA\Property(property="code", type="string", example="CS408")
+ * @OA\Property(property="code", type="string", example="CS408"),
+ * @OA\Property(property="ects", type="integer", example=6),
+ * @OA\Property(property="academic_level", type="string", enum={"Bachelor", "Master", "Doctorate"}, example="Master")
  * )
  * ),
  * @OA\Response(response=200, description="Course updated successfully"),
- * @OA\Response(response=444, description="Course not found")
+ * @OA\Response(response=404, description="Course not found")
  * )
  */
 Flight::route('PUT /courses/@id', function ($id) {
     try {
         $data = Flight::request()->data->getData();
-        $updated_course = Flight::courseService()->update($id, $data);
+        $updated_course = Flight::course_service()->update($id, $data);
         
         if (!$updated_course) {
             Flight::json(['error' => 'Course not found'], 404);
@@ -171,7 +170,7 @@ Flight::route('PUT /courses/@id', function ($id) {
  */
 Flight::route('DELETE /courses/@id', function ($id) {
     try {
-        Flight::courseService()->delete($id);
+        Flight::course_service()->delete($id);
         Flight::json(['message' => 'Course deleted successfully'], 200);
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
@@ -193,7 +192,7 @@ Flight::route('DELETE /courses/@id', function ($id) {
  */
 Flight::route('GET /courses/code/@code', function ($code) {
     try {
-        $course = Flight::courseService()->getCourseByCode($code);
+        $course = Flight::course_service()->getCourseByCode($code);
         if (!$course) {
             Flight::json(['error' => 'Course not found'], 404);
         } else {
@@ -216,7 +215,7 @@ Flight::route('GET /courses/code/@code', function ($code) {
  */
 Flight::route('GET /courses/department/@id', function ($id) {
     try {
-        $courses = Flight::courseService()->getCoursesByDepartment($id);
+        $courses = Flight::course_service()->getCoursesByDepartment($id);
         Flight::json($courses, 200);
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], 500);

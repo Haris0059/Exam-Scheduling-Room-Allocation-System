@@ -22,7 +22,7 @@ class BaseService {
         return $this->dao->add($data);
     }
     
-    public function update($id, $data) {
+    public function update($data, $id) {
         return $this->dao->update($id, $data);
     }
     

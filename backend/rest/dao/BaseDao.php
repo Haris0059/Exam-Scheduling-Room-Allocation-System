@@ -22,7 +22,7 @@ class BaseDao
         } catch (PDOException $e) {
             throw $e;
         }
-    }
+    } 
 
     protected function query($query, $params)
     {

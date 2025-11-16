@@ -17,11 +17,11 @@ class Config
     }
     public static function DB_USER()
     {
-        return 'root';
+        return 'admin';
     }
     public static function DB_PASSWORD()
     {
-        return 'test123';
+        return 'admin';
     }
     public static function DB_HOST()
     {

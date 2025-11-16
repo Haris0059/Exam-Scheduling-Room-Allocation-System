@@ -13,12 +13,18 @@ class CourseDao extends BaseDao
 
     public function getByCode($code)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE code %LIKE% :code', ['code' => $code]);
+        return $this->query(
+            'SELECT * FROM ' . $this->table_name . ' WHERE code LIKE CONCAT("%", :code, "%")', 
+            ['code' => $code]
+        );
     }
 
     public function getByName($name)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE name %LIKE% :name', ['name' => $name]);
+        return $this->query(
+            'SELECT * FROM ' . $this->table_name . ' WHERE name LIKE CONCAT("%", :name, "%")', 
+            ['name' => $name]
+        );
     }
 
     public function getByAcademicLevel($academic_level)
@@ -33,7 +39,7 @@ class CourseDao extends BaseDao
     
     public function getByDepartment($department_id)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
+        return $this->query('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
     }
 
     public function countCoursesPaginated($search)
@@ -60,4 +66,3 @@ class CourseDao extends BaseDao
         ]);
     }
 }
-?>
