@@ -6,9 +6,9 @@ error_reporting(E_ALL);
 require __DIR__ . '/../../../vendor/autoload.php';
 
 if($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1'){
-    define('BASE_URL', 'http://localhost/web-programming-2025/backend');
+    define('BASE_URL', 'http://localhost/backend/rest');
 } else {
-    define('BASE_URL', 'https://lobster-app-czvm2.ondigitalocean.app/backend/');
+    define('BASE_URL', 'https://your-production-domain.com/backend/rest');
 }
 
 $openapi = \OpenApi\Generator::scan([

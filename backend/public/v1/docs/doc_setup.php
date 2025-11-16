@@ -2,19 +2,19 @@
 
 /**
  * @OA\Info(
- *     title="API",
- *     description="Restaurant API",
- *     version="1.0",
+ *     title="ESRAS API",
+ *     description="Exam Scheduling and Room Allocation System API",
+ *     version="1.0.0",
  *     @OA\Contact(
- *         email="web2001programming@gmail.com",
- *         name="Web Programming"
+ *         email="haris.skeledzija@stu.ibu.edu.ba",
+ *         name="Haris Skeledzija"
  *     )
  * )
  */
 
 /**
  * @OA\Server(
- *      url="http://localhost/web-programming-2025/backend",
+ *      url="http://localhost/backend/rest",
  *      description="API server"
  * )
 */
@@ -29,3 +29,4 @@
  *     name="Authentication"
  * )
  */
+?>
