@@ -19,6 +19,7 @@
 -- Table structure for table `course_enrollments`
 --
 
+DROP TABLE IF EXISTS `course_enrollments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `course_enrollments` (
@@ -40,11 +41,14 @@ CREATE TABLE `course_enrollments` (
 -- Dumping data for table `course_enrollments`
 --
 
+/*!40000 ALTER TABLE `course_enrollments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `course_enrollments` ENABLE KEYS */;
 
 --
 -- Table structure for table `course_professors`
 --
 
+DROP TABLE IF EXISTS `course_professors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `course_professors` (
@@ -66,11 +70,14 @@ CREATE TABLE `course_professors` (
 -- Dumping data for table `course_professors`
 --
 
+/*!40000 ALTER TABLE `course_professors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `course_professors` ENABLE KEYS */;
 
 --
 -- Table structure for table `courses`
 --
 
+DROP TABLE IF EXISTS `courses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `courses` (
@@ -86,18 +93,22 @@ CREATE TABLE `courses` (
   KEY `faculty_id` (`faculty_id`),
   CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
   CONSTRAINT `courses_ibfk_2` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `courses`
 --
 
+/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` (`id`, `code`, `name`, `ects`, `academic_level`, `faculty_id`, `department_id`) VALUES (1,'IT 2001','Web Programming',8.0,'Bachelor',1,1);
+/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 
 --
 -- Table structure for table `departments`
 --
 
+DROP TABLE IF EXISTS `departments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `departments` (
@@ -107,18 +118,22 @@ CREATE TABLE `departments` (
   PRIMARY KEY (`id`),
   KEY `faculty_id` (`faculty_id`),
   CONSTRAINT `departments_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `departments`
 --
 
+/*!40000 ALTER TABLE `departments` DISABLE KEYS */;
+INSERT INTO `departments` (`id`, `name`, `faculty_id`) VALUES (1,'Information Technology',1),(2,'Electircal and Electronics Engineering',1),(3,'Genetics and Bioengineering',1),(4,'Arhitecture',1),(5,'Civil Engineering',1),(6,'Dentistry',1);
+/*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 
 --
 -- Table structure for table `employees`
 --
 
+DROP TABLE IF EXISTS `employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employees` (
@@ -143,35 +158,14 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-
---
--- Table structure for table `exam_enrollments`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `exam_enrollments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `exam_id` int(10) unsigned DEFAULT NULL,
-  `student_id` int(10) unsigned DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `exam_id` (`exam_id`),
-  KEY `student_id` (`student_id`),
-  CONSTRAINT `exam_enrollments_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`id`),
-  CONSTRAINT `exam_enrollments_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `exam_enrollments`
---
-
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
 --
 -- Table structure for table `exam_rooms`
 --
 
+DROP TABLE IF EXISTS `exam_rooms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `exam_rooms` (
@@ -190,11 +184,14 @@ CREATE TABLE `exam_rooms` (
 -- Dumping data for table `exam_rooms`
 --
 
+/*!40000 ALTER TABLE `exam_rooms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `exam_rooms` ENABLE KEYS */;
 
 --
 -- Table structure for table `exams`
 --
 
+DROP TABLE IF EXISTS `exams`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `exams` (
@@ -214,38 +211,46 @@ CREATE TABLE `exams` (
 -- Dumping data for table `exams`
 --
 
+/*!40000 ALTER TABLE `exams` DISABLE KEYS */;
+/*!40000 ALTER TABLE `exams` ENABLE KEYS */;
 
 --
 -- Table structure for table `faculty`
 --
 
+DROP TABLE IF EXISTS `faculty`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `faculty` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `faculty`
 --
 
+/*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
+INSERT INTO `faculty` (`id`, `name`) VALUES (1,'Faculty of Engineering, Natural and Medical Sciences'),(2,'Faculty of Economics and Social Sciences'),(3,'Faculty of Education and Humanities');
+/*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 
 --
 -- Table structure for table `rooms`
 --
 
+DROP TABLE IF EXISTS `rooms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rooms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` int(3) NOT NULL,
-  `building` varchar(1) NOT NULL,
   `type` enum('standard','it','lecturehall') DEFAULT NULL,
   `seat_capacity` int(10) unsigned NOT NULL,
-  `coordinates` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`coordinates`)),
+  `coord_x` int(11) DEFAULT NULL,
+  `coord_y` int(11) DEFAULT NULL,
+  `coord_z` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -254,11 +259,14 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
+/*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
 --
 -- Table structure for table `students`
 --
 
+DROP TABLE IF EXISTS `students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `students` (
@@ -266,7 +274,6 @@ CREATE TABLE `students` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `password` varchar(255) NOT NULL,
   `academic_level` enum('bachelor','master','doctorate') DEFAULT NULL,
   `semester` int(2) DEFAULT NULL,
   `status` enum('active','inactive') DEFAULT NULL,
@@ -274,13 +281,16 @@ CREATE TABLE `students` (
   PRIMARY KEY (`id`),
   KEY `department_id` (`department_id`),
   CONSTRAINT `students_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `students`
 --
 
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `academic_level`, `semester`, `status`, `department_id`) VALUES (1,'Jane','Doe','jane.doe@test.com','bachelor',4,'inactive',1),(2,'Nadza','Hasanovic','nadza@test.com',NULL,NULL,'active',1);
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
 --
 -- Dumping routines for database 'esras'
@@ -295,4 +305,4 @@ CREATE TABLE `students` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-30 20:34:10
+-- Dump completed on 2025-11-17  0:16:19
