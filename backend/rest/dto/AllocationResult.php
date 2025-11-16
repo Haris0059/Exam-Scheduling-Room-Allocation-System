@@ -9,3 +9,4 @@ class AllocationResult {
     // success/failure status
     public $success = false; 
 }
+?>

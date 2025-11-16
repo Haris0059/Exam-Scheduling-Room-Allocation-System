@@ -47,3 +47,4 @@ class StudentDao extends BaseDao
         ]);
     }
 }
+?>

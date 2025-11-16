@@ -62,3 +62,4 @@ class EmployeeService extends BaseService
         return $this->dao->getByFaculty($faculty_id);
     }
 }
+?>

@@ -43,3 +43,4 @@ Flight::route('/', function(){
 
 
 Flight::start();  //start FlightPHP
+?>

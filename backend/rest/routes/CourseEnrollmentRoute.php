@@ -133,3 +133,4 @@ Flight::route('DELETE /enrollments/@id', function ($id) {
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
     }
 });
+?>

@@ -15,3 +15,4 @@ class ParsedRoom {
         $this->z = (int)$db_row['floor'];
     }
 }
+?>

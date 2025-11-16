@@ -26,3 +26,4 @@ class ExamDao extends BaseDao
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE type=:type', ['type' => $type]);
     }
 }
+?>

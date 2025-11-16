@@ -221,3 +221,4 @@ Flight::route('GET /courses/department/@id', function ($id) {
         Flight::json(['error' => $e->getMessage()], 500);
     }
 });
+?>

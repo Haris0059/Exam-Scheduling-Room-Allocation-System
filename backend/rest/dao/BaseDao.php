@@ -100,3 +100,4 @@ class BaseDao
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
     }
 }
+?>

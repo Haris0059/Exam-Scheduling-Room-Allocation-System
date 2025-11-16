@@ -47,3 +47,4 @@ class CourseService extends BaseService
         return $this->dao->getByDepartment($department_id);
     }
 }
+?>

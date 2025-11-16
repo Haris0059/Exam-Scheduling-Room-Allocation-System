@@ -24,3 +24,4 @@ class CourseEnrollmentDao extends BaseDao
         return (int)$result['total'];
     }
 }
+?>
