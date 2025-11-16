@@ -29,22 +29,22 @@ class EmployeeDao extends BaseDao
 
     public function getByRole($role)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE role=:role', ['role' => $role]);
+        return $this->query('SELECT * FROM ' . $this->table_name . ' WHERE role=:role', ['role' => $role]);
     }
 
     public function getByStatus($status)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE status=:status', ['status' => $status]);
+        return $this->query('SELECT * FROM ' . $this->table_name . ' WHERE status=:status', ['status' => $status]);
     }
 
     public function getByDepartment($department_id)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
+        return $this->query('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
     }
 
     public function getByFaculty($faculty_id)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE faculty_id=:faculty_id', ['faculty_id' => $faculty_id]);
+        return $this->query('SELECT * FROM ' . $this->table_name . ' WHERE faculty_id=:faculty_id', ['faculty_id' => $faculty_id]);
     }
 
     public function countEmployeesPaginated($search)

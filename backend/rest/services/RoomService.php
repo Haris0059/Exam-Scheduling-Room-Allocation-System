@@ -23,7 +23,7 @@ class RoomService extends BaseService
 
     public function updateRoom($id, $data)
     {
-        $this->validationCheck($data);
+        //$this->validationCheck($data);
         
         return $this->dao->update($id, $data);
     }
@@ -46,9 +46,35 @@ class RoomService extends BaseService
             throw new Exception("Room type is required.");
         } else if (empty($data['seat_capacity'])) {
             throw new Exception("Seat capacity is required.");
-        } else if (empty($data['coordinates'])) {
+        } else if (empty($data['coord_x']) || empty($data['coord_y']) || empty($data['coord_z'])) {
             throw new Exception("Coordinates are required.");
         }
+    }
+
+    public function getRoomsPaginated($offset, $limit, $search, $order_column, $order_direction)
+    {
+        $count = $this->dao->countRoomsPaginated($search)['count'];
+        $data = $this->dao->getRoomsPaginated($offset, $limit, $search, $order_column, $order_direction);
+
+        return [
+            'total_records' => $count,
+            'data' => $data
+        ];
+    }
+
+    public function getByCode($code)
+    {
+        return $this->dao->getByCode($code);
+    }
+
+    public function getByType($type)
+    {
+        return $this->dao->getByType($type);
+    }
+    
+    public function getBySeatCapacity($seat_capacity)
+    {
+        return $this->dao->getBySeatCapacity($seat_capacity);
     }
 }
 ?>

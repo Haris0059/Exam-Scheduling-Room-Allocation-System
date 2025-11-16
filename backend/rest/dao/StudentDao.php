@@ -18,7 +18,7 @@ class StudentDao extends BaseDao
 
     public function getByDepartment($department_id)
     {
-        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
+        return $this->query('SELECT * FROM ' . $this->table_name . ' WHERE department_id=:department_id', ['department_id' => $department_id]);
     }
 
     public function countStudentsPaginated($search)

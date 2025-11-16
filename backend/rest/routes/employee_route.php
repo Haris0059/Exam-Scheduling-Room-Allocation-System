@@ -3,7 +3,7 @@
 /**
  * @OA\Get(
  * path="/employees",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Get all employees with pagination",
  * @OA\Parameter(
  * name="search",
@@ -23,14 +23,13 @@
  */
 Flight::route('GET /employees', function () {
     try {
-        // Get query parameters with defaults
         $search = Flight::request()->query['search'] ?? '';
         $offset = Flight::request()->query['offset'] ?? 0;
         $limit = Flight::request()->query['limit'] ?? 10;
         $order_column = Flight::request()->query['order_column'] ?? 'id';
         $order_direction = Flight::request()->query['order_direction'] ?? 'ASC';
 
-        $result = Flight::employeeService()->getEmployeesPaginated(
+        $result = Flight::employee_service()->getEmployeesPaginated(
             $offset,
             $limit,
             $search,
@@ -40,7 +39,9 @@ Flight::route('GET /employees', function () {
 
         Flight::json($result, 200);
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
 
@@ -48,7 +49,7 @@ Flight::route('GET /employees', function () {
 /**
  * @OA\Get(
  * path="/employees/{id}",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Get a single employee by their ID",
  * @OA\Parameter(
  * name="id",
@@ -63,14 +64,16 @@ Flight::route('GET /employees', function () {
  */
 Flight::route('GET /employees/@id', function ($id) {
     try {
-        $employee = Flight::employeeService()->get_by_id($id);
+        $employee = Flight::employee_service()->getById($id);
         if (!$employee) {
             Flight::json(['error' => 'Employee not found'], 404);
         } else {
             Flight::json($employee, 200);
         }
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
 
@@ -78,19 +81,21 @@ Flight::route('GET /employees/@id', function ($id) {
 /**
  * @OA\Post(
  * path="/employees",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Add a new employee",
  * @OA\RequestBody(
  * required=true,
  * description="Employee data",
  * @OA\JsonContent(
  * type="object",
- * required={"first_name", "last_name", "email", "role"},
+ * required={"first_name", "last_name", "email", "password", "role"},
  * @OA\Property(property="first_name", type="string", example="John"),
  * @OA\Property(property="last_name", type="string", example="Doe"),
  * @OA\Property(property="email", type="string", example="john.doe@example.com"),
- * @OA\Property(property="role", type="string", example="professor"),
- * @OA\Property(property="status", type="string", example="active"),
+ * @OA\Property(property="password", type="string", example="strongpassword123"),
+ * @OA\Property(property="role", type="string", enum={"admin", "professor", "assistant"}, example="professor"),
+ * @OA\Property(property="status", type="string", enum={"active", "inactive"}, example="active"),
+ * @OA\Property(property="faculty_id", type="integer", example=1),
  * @OA\Property(property="department_id", type="integer", example=1)
  * )
  * ),
@@ -101,10 +106,12 @@ Flight::route('GET /employees/@id', function ($id) {
 Flight::route('POST /employees', function () {
     try {
         $data = Flight::request()->data->getData();
-        $new_employee = Flight::employeeService()->create($data);
+        $new_employee = Flight::employee_service()->add($data);
         Flight::json($new_employee, 201);
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
 
@@ -112,7 +119,7 @@ Flight::route('POST /employees', function () {
 /**
  * @OA\Put(
  * path="/employees/{id}",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Update an existing employee",
  * @OA\Parameter(
  * name="id",
@@ -126,7 +133,12 @@ Flight::route('POST /employees', function () {
  * @OA\JsonContent(
  * type="object",
  * @OA\Property(property="first_name", type="string", example="Jane"),
- * @OA\Property(property="email", type="string", example="jane.doe@example.com")
+ * @OA\Property(property="last_name", type="string", example="Doe"),
+ * @OA\Property(property="email", type="string", example="jane.doe@example.com"),
+ * @OA\Property(property="role", type="string", enum={"admin", "professor", "assistant"}),
+ * @OA\Property(property="status", type="string", enum={"active", "inactive"}),
+ * @OA\Property(property="faculty_id", type="integer"),
+ * @OA\Property(property="department_id", type="integer")
  * )
  * ),
  * @OA\Response(response=200, description="Employee updated successfully"),
@@ -136,7 +148,7 @@ Flight::route('POST /employees', function () {
 Flight::route('PUT /employees/@id', function ($id) {
     try {
         $data = Flight::request()->data->getData();
-        $updated_employee = Flight::employeeService()->update($id, $data);
+        $updated_employee = Flight::employee_service()->update($id, $data);
         
         if (!$updated_employee) {
             Flight::json(['error' => 'Employee not found'], 404);
@@ -144,7 +156,9 @@ Flight::route('PUT /employees/@id', function ($id) {
             Flight::json($updated_employee, 200);
         }
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
 
@@ -152,8 +166,8 @@ Flight::route('PUT /employees/@id', function ($id) {
 /**
  * @OA\Delete(
  * path="/employees/{id}",
- * tags={"employees"},
- * summary="Delete an employee (soft delete recommended)",
+ * tags={"Employees"},
+ * summary="Delete an employee",
  * @OA\Parameter(
  * name="id",
  * in="path",
@@ -166,18 +180,19 @@ Flight::route('PUT /employees/@id', function ($id) {
  */
 Flight::route('DELETE /employees/@id', function ($id) {
     try {
-        Flight::employeeService()->delete($id);
+        Flight::employee_service()->delete($id);
         Flight::json(['message' => 'Employee deleted successfully'], 200);
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
-
 
 /**
  * @OA\Get(
  * path="/employees/email/{email}",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Get an employee by their email",
  * @OA\Parameter(name="email", in="path", required=true, @OA\Schema(type="string")),
  * @OA\Response(response=200, description="Employee data"),
@@ -186,51 +201,95 @@ Flight::route('DELETE /employees/@id', function ($id) {
  */
 Flight::route('GET /employees/email/@email', function ($email) {
     try {
-        $employee = Flight::employeeService()->getEmployeeByEmail($email);
+        $employee = Flight::employee_service()->getEmployeeByEmail($email);
         if (!$employee) {
             Flight::json(['error' => 'Employee not found'], 404);
         } else {
             Flight::json($employee, 200);
         }
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
 
 /**
  * @OA\Get(
  * path="/employees/department/{id}",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Get employees by department ID",
  * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
- * @OA\Response(response=200, description="List of employees")
+ * @OA\Response(response=200, description="A list of employees in the department")
  * )
  */
 Flight::route('GET /employees/department/@id', function ($id) {
     try {
-        // DAO uses query_unique, so this will only return one employee
-        $employees = Flight::employeeService()->getEmployeesByDepartment($id);
+        $employees = Flight::employee_service()->getEmployeesByDepartment($id);
         Flight::json($employees, 200);
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });
 
 /**
  * @OA\Get(
  * path="/employees/faculty/{id}",
- * tags={"employees"},
+ * tags={"Employees"},
  * summary="Get employees by faculty ID",
  * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
- * @OA\Response(response=200, description="List of employees")
+ * @OA\Response(response=200, description="A list of employees in the faculty")
  * )
  */
 Flight::route('GET /employees/faculty/@id', function ($id) {
     try {
-        // DAO uses query_unique, so this will only return one employee
-        $employees = Flight::employeeService()->getEmployeesByFaculty($id);
+        $employees = Flight::employee_service()->getEmployeesByFaculty($id);
         Flight::json($employees, 200);
     } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], 500);
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
+    }
+});
+
+/**
+ * @OA\Get(
+ * path="/employees/role/{role}",
+ * tags={"Employees"},
+ * summary="Get employees by role",
+ * @OA\Parameter(name="role", in="path", required=true, @OA\Schema(type="string", enum={"admin", "professor", "assistant"})),
+ * @OA\Response(response=200, description="A list of employees matching the role")
+ * )
+ */
+Flight::route('GET /employees/role/@role', function ($role) {
+    try {
+        $employees = Flight::employee_service()->getEmployeesByRole($role);
+        Flight::json($employees, 200);
+    } catch (Exception $e) {
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
+    }
+});
+
+/**
+ * @OA\Get(
+ * path="/employees/status/{status}",
+ * tags={"Employees"},
+ * summary="Get employees by status",
+ * @OA\Parameter(name="status", in="path", required=true, @OA\Schema(type="string", enum={"active", "inactive"})),
+ * @OA\Response(response=200, description="A list of employees matching the status")
+ * )
+ */
+Flight::route('GET /employees/status/@status', function ($status) {
+    try {
+        $employees = Flight::employee_service()->getEmployeesByStatus($status);
+        Flight::json($employees, 200);
+    } catch (Exception $e) {
+        $code = $e->getCode();
+        if ($code < 100 || $code > 599) $code = 500;
+        Flight::json(['error' => $e->getMessage()], $code);
     }
 });

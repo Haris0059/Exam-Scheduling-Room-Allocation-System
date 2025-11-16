@@ -3,7 +3,7 @@
 /**
  * @OA\Get(
  * path="/courses",
- * tags={"courses"},
+ * tags={"Courses"},
  * summary="Get all courses with pagination",
  * @OA\Parameter(
  * name="search",
@@ -49,7 +49,7 @@ Flight::route('GET /courses', function () {
 /**
  * @OA\Get(
  * path="/courses/{id}",
- * tags={"courses"},
+ * tags={"Courses"},
  * summary="Get a single course by its ID",
  * @OA\Parameter(
  * name="id",
@@ -75,11 +75,51 @@ Flight::route('GET /courses/@id', function ($id) {
     }
 });
 
+/**
+ * @OA\Get(
+ * path="/courses/code/{code}",
+ * tags={"Courses"},
+ * summary="Get a course by its code",
+ * @OA\Parameter(name="code", in="path", required=true, @OA\Schema(type="string")),
+ * @OA\Response(response=200, description="Course data"),
+ * @OA\Response(response=404, description="Course not found")
+ * )
+ */
+Flight::route('GET /courses/code/@code', function ($code) {
+    try {
+        $course = Flight::course_service()->getCourseByCode($code);
+        if (!$course) {
+            Flight::json(['error' => 'Course not found'], 404);
+        } else {
+            Flight::json($course, 200);
+        }
+    } catch (Exception $e) {
+        Flight::json(['error' => $e->getMessage()], 500);
+    }
+});
+
+/**
+ * @OA\Get(
+ * path="/courses/department/{id}",
+ * tags={"Courses"},
+ * summary="Get courses by department ID",
+ * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+ * @OA\Response(response=200, description="List of courses")
+ * )
+ */
+Flight::route('GET /courses/department/@id', function ($id) {
+    try {
+        $courses = Flight::course_service()->getCoursesByDepartment($id);
+        Flight::json($courses, 200);
+    } catch (Exception $e) {
+        Flight::json(['error' => $e->getMessage()], 500);
+    }
+});
 
 /**
  * @OA\Post(
  * path="/courses",
- * tags={"courses"},
+ * tags={"Courses"},
  * summary="Add a new course",
  * @OA\RequestBody(
  * required=true,
@@ -114,7 +154,7 @@ Flight::route('POST /courses', function () {
 /**
  * @OA\Put(
  * path="/courses/{id}",
- * tags={"courses"},
+ * tags={"Courses"},
  * summary="Update an existing course",
  * @OA\Parameter(
  * name="id",
@@ -156,7 +196,7 @@ Flight::route('PUT /courses/@id', function ($id) {
 /**
  * @OA\Delete(
  * path="/courses/{id}",
- * tags={"courses"},
+ * tags={"Courses"},
  * summary="Delete a course",
  * @OA\Parameter(
  * name="id",
@@ -174,50 +214,5 @@ Flight::route('DELETE /courses/@id', function ($id) {
         Flight::json(['message' => 'Course deleted successfully'], 200);
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
-    }
-});
-
-
-// --- Custom Routes ---
-
-/**
- * @OA\Get(
- * path="/courses/code/{code}",
- * tags={"courses"},
- * summary="Get a course by its code",
- * @OA\Parameter(name="code", in="path", required=true, @OA\Schema(type="string")),
- * @OA\Response(response=200, description="Course data"),
- * @OA\Response(response=404, description="Course not found")
- * )
- */
-Flight::route('GET /courses/code/@code', function ($code) {
-    try {
-        $course = Flight::course_service()->getCourseByCode($code);
-        if (!$course) {
-            Flight::json(['error' => 'Course not found'], 404);
-        } else {
-            Flight::json($course, 200);
-        }
-    } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], 500);
-    }
-});
-
-
-/**
- * @OA\Get(
- * path="/courses/department/{id}",
- * tags={"courses"},
- * summary="Get courses by department ID",
- * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
- * @OA\Response(response=200, description="List of courses")
- * )
- */
-Flight::route('GET /courses/department/@id', function ($id) {
-    try {
-        $courses = Flight::course_service()->getCoursesByDepartment($id);
-        Flight::json($courses, 200);
-    } catch (Exception $e) {
-        Flight::json(['error' => $e->getMessage()], 500);
     }
 });

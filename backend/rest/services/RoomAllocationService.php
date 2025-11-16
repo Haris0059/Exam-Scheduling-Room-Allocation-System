@@ -25,7 +25,7 @@ class RoomAllocationService {
     public function findAllocation($exam_id, $required_room_type) {
         
         // 1. Get Requirements
-        $exam = $this->examDao->get_by_id($exam_id);
+        $exam = $this->examDao->getById($exam_id);
         if (!$exam) throw new Exception("Exam not found.", 404);
 
         $required_capacity = $this->courseEnrollmentDao->getCountByCourse($exam['course_id']);

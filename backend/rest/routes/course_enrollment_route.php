@@ -3,7 +3,7 @@
 /**
  * @OA\Get(
  * path="/enrollments/course/{id}/count",
- * tags={"enrollments"},
+ * tags={"Course Enrollments"},
  * summary="Get the count of active students in a course",
  * @OA\Parameter(
  * name="id",
@@ -36,7 +36,7 @@ Flight::route('GET /enrollments/course/@id/count', function ($id) {
 /**
  * @OA\Post(
  * path="/enrollments",
- * tags={"enrollments"},
+ * tags={"Course Enrollments"},
  * summary="Enroll a student in a course",
  * @OA\RequestBody(
  * required=true,
@@ -67,7 +67,7 @@ Flight::route('POST /enrollments', function () {
 /**
  * @OA\Get(
  * path="/enrollments",
- * tags={"enrollments"},
+ * tags={"Course Enrollments"},
  * summary="Get all enrollments",
  * @OA\Response(response=200, description="List of all enrollments")
  * )
@@ -85,7 +85,7 @@ Flight::route('GET /enrollments', function () {
 /**
  * @OA\Put(
  * path="/enrollments/{id}",
- * tags={"enrollments"},
+ * tags={"Course Enrollments"},
  * summary="Update an enrollment (e.g., set status to 'dropped')",
  * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  * @OA\RequestBody(
@@ -118,7 +118,7 @@ Flight::route('PUT /enrollments/@id', function ($id) {
 /**
  * @OA\Delete(
  * path="/enrollments/{id}",
- * tags={"enrollments"},
+ * tags={"Course Enrollments"},
  * summary="Delete an enrollment",
  * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  * @OA\Response(response=200, description="Enrollment deleted"),
