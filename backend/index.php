@@ -2,13 +2,13 @@
 require 'vendor/autoload.php'; //run autoloader
 
 // All services
-require_once 'services/BaseService.php';
-require_once 'services/CourseService.php';
-require_once 'services/EmployeeService.php';
-require_once 'services/ExamService.php';
-require_once 'services/RoomAllocationService.php';
-require_once 'services/RoomService.php';
-require_once 'services/StudentService.php';
+require_once 'rest/services/BaseService.php';
+require_once 'rest/services/CourseService.php';
+require_once 'rest/services/EmployeeService.php';
+require_once 'rest/services/ExamService.php';
+require_once 'rest/services/RoomAllocationService.php';
+require_once 'rest/services/RoomService.php';
+require_once 'rest/services/StudentService.php';
 
 // All routes
 //require_once 'rest/routes/BaseRoute.php';
