@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../config.php";
+require_once __DIR__ . '/../../config.php';
 
 class BaseDao
 {
@@ -22,7 +22,7 @@ class BaseDao
         } catch (PDOException $e) {
             throw $e;
         }
-    }
+    } 
 
     protected function query($query, $params)
     {
@@ -38,8 +38,7 @@ class BaseDao
     }
 
     /**
-     * Method used to get add entity to database
-     * string $first_name: First name is the first name of the course
+     * Method used to add entity to database
      */
     public function add($entity)
     {
@@ -92,8 +91,13 @@ class BaseDao
     /**
      * Method used to get all entities from the selected table
      */
-    public function get_all() {
+    public function getAll() {
         return $this->query('SELECT * FROM ' . $this->table_name, []);
         
     }
+
+    public function getById($id) {
+        return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
+    }
 }
+?>

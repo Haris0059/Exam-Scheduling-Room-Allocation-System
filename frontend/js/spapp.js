@@ -1,6 +1,6 @@
 var app = $.spapp({
     defaultView: "dashboard",
-    templateDir: "/frontend/views/"
+    templateDir: "views/"
 })
 
 // register onReady handlers for each section so only the active view is shown
