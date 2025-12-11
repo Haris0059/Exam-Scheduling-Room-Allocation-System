@@ -5,7 +5,7 @@ class AuthDao extends BaseDao {
    protected $table_name;
 
    public function __construct() {
-       $this->table_name = "users";
+       $this->table_name = "employees";
        parent::__construct($this->table_name);
    }
 
@@ -13,4 +13,14 @@ class AuthDao extends BaseDao {
        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
        return $this->query_unique($query, ['email' => $email]);
    }
+
+   //helper function for register only tempoary
+    public function count_all_employees() {
+        $result = $this->query_unique(
+            "SELECT COUNT(*) AS cnt FROM employees",
+            []  // second argument REQUIRED
+        );
+        return $result['cnt'];
+    }
+
 }
