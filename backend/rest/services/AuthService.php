@@ -19,28 +19,37 @@ class AuthService extends BaseService {
 
 
    public function register($entity) {  
-       if (empty($entity['email']) || empty($entity['password'])) {
-           return ['success' => false, 'error' => 'Email and password are required.'];
-       }
+    if (empty($entity['email']) || empty($entity['password'])) {
+        return ['success' => false, 'error' => 'Email and password are required.'];
+    }
 
+    // Check if the email is already registered
+    $email_exists = $this->auth_dao->get_user_by_email($entity['email']);
+    if ($email_exists) {
+        return ['success' => false, 'error' => 'Email already registered.'];
+    }
 
-       $email_exists = $this->auth_dao->get_user_by_email($entity['email']);
-       if($email_exists){
-           return ['success' => false, 'error' => 'Email already registered.'];
-       }
+    // Assign admin role ONLY if this is the first account
+    $count = $this->auth_dao->count_all_employees();
+    if ($count == 0) {
+        $entity['role'] = 'admin';
+        $entity['faculty_id'] = '1';
+    } else {
+        $entity['role'] = 'employee';   // or "assistant", "professor", etc.
+    }
 
+    // Hash password
+    $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
 
-       $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
+    // Insert into DB
+    $entity = parent::add($entity);
 
+    // Do not return password
+    unset($entity['password']);
 
-       $entity = parent::add($entity);
+    return ['success' => true, 'data' => $entity];
+}
 
-
-       unset($entity['password']);
-
-
-       return ['success' => true, 'data' => $entity];             
-   }
 
 
    public function login($entity) {  
@@ -78,4 +87,5 @@ class AuthService extends BaseService {
 
        return ['success' => true, 'data' => array_merge($user, ['token' => $token])];             
    }
+
 }
