@@ -133,3 +133,40 @@ Flight::route('DELETE /enrollments/@id', function ($id) {
         Flight::json(['error' => $e->getMessage()], $e->getCode() ?: 500);
     }
 });
+
+/**
+ * @OA\Get(
+ *   path="/enrollments/course/{id}",
+ *   tags={"Course Enrollments"},
+ *   summary="Get all students enrolled in a specific course",
+ *   @OA\Parameter(
+ *       name="id",
+ *       in="path",
+ *       required=true,
+ *       description="The Course ID",
+ *       @OA\Schema(type="integer")
+ *   ),
+ *   @OA\Response(
+ *       response=200,
+ *       description="List of students enrolled in the course"
+ *   ),
+ *   @OA\Response(
+ *       response=404,
+ *       description="Course not found or no enrollments"
+ *   )
+ * )
+ */
+Flight::route('GET /enrollments/course/@id', function($id){
+    try {
+        $students = Flight::course_enrollment_service()->getCourseStudents($id);
+
+        Flight::json([
+            "course_id" => (int)$id,
+            "data" => $students
+        ], 200);
+
+    } catch (Exception $e) {
+        Flight::json(["error" => $e->getMessage()], 500);
+    }
+});
+

@@ -14,5 +14,11 @@ class CourseEnrollmentService extends BaseService
     {
         return $this->dao->getCountByCourse($course_id);
     }
+
+    public function getCourseStudents($course_id)
+    {
+        return $this->dao->getCourseStudents($course_id);
+    }
+
 }
 ?>
