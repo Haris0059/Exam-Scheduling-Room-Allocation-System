@@ -82,6 +82,9 @@
     <!-- Custom scripts for all pages-->
     <script src="../js/esras.min.js"></script>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
     <script>
     $(document).ready(function() {
@@ -107,8 +110,7 @@
                     window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
                 },
                 error: function(xhr) {
-                    alert("Invalid email or password");
-                    //update to toastr notification ASAP
+                    toastr.error("Invalid email or password", "Error");
                 }
             });
 
