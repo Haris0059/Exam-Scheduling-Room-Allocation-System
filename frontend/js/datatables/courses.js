@@ -1,6 +1,6 @@
 $(function () {
 
-    // Initialize DataTable
+    // initialize DataTable for courses
     let table = $('#dataTableCourses').DataTable({
         ajax: {
             url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/courses",
@@ -15,7 +15,7 @@ $(function () {
             { data: "name" },
             { data: "ects" },
 
-            // Students modal button
+            // students modal button
             {
                 data: "id",
                 render: function (id) {
@@ -32,7 +32,7 @@ $(function () {
                 }
             },
 
-            // Static Status column ("Active")
+            // status column (active is set always due to it not implemented in db will be change later myb)
             {
                 data: null,
                 render: function () {
