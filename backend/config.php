@@ -17,11 +17,11 @@ class Config
     }
     public static function DB_USER()
     {
-        return 'admin';
+        return 'root';
     }
     public static function DB_PASSWORD()
     {
-        return 'admin';
+        return '12345';
     }
     public static function DB_HOST()
     {
@@ -30,6 +30,6 @@ class Config
 
     public static function JWT_SECRET() 
     {
-        return 'example_string';
+        return '6eecf4da014ac7f0f32376d266b1520e';
     }
 }
