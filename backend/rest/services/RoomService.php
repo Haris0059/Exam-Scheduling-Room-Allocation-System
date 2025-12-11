@@ -25,7 +25,7 @@ class RoomService extends BaseService
     {
         //$this->validationCheck($data);
         
-        return $this->dao->update($id, $data);
+        return $this->dao->update($data, $id);
     }
 
     public function removeRoom($id)
