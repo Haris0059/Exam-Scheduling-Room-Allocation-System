@@ -12,13 +12,13 @@
     <title>Register | ESRA System</title>
 
     <!-- Custom fonts for this template-->
-    <link href="frontend/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="frontend/css/esras.css" rel="stylesheet">
+    <link href="../css/esras.css" rel="stylesheet">
 
 </head>
 
@@ -37,31 +37,31 @@
                                 <form class="user">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                            <input type="text" class="form-control form-control-user" id="firstName"
                                                 placeholder="First Name">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                            <input type="text" class="form-control form-control-user" id="lastName"
                                                 placeholder="Last Name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                        <input type="email" class="form-control form-control-user" id="email"
                                             placeholder="Email Address">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="password" placeholder="Password">
                                         </div>
                                         <div class="col-sm-6">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleRepeatPassword" placeholder="Repeat Password">
+                                                id="repeatPassword" placeholder="Repeat Password">
                                         </div>
                                     </div>
-                                    <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" id="registerBtn" class="btn btn-primary btn-user btn-block">
                                         Register Account
-                                    </a>            
+                                    </button>            
                                 </form>
                                 <hr>
                                 <div class="text-center">
@@ -79,14 +79,54 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/frontend/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/frontend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/frontend/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/frontend/js/esras.min.js"></script>
+    <script src="../js/esras.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+    
+        $('.user').on('submit', function(e) {
+            e.preventDefault();
+        
+            const firstName = $('#firstName').val();
+            const lastName = $('#lastName').val();
+            const email = $('#email').val();
+            const password = $('#password').val();
+            const repeatPassword = $('#repeatPassword').val();
+        
+            if (password !== repeatPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+        
+            $.ajax({
+                url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/register",
+                method: "POST",
+                data: {
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password
+                },
+                success: function(response) {
+                    alert("Registration successful!");
+                    window.location.href = "login.html";
+                },
+                error: function(xhr) {
+                    alert("Registration failed: " + xhr.responseText);
+                }
+            });
+        
+        });
+    
+    });
+    </script>
 
 </body>
 

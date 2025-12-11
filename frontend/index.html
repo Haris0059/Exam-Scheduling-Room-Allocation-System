@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="js/auth.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -127,7 +128,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-400 small">Douglas McGee</span>
+                                <span id="userName" class="mr-2 d-none d-lg-inline text-gray-400 small"></span>
                                 <img class="img-profile rounded-circle"
                                     src="assets/img/undraw_profile.svg">
                             </a>
@@ -203,27 +204,33 @@
         </div>
     </div>
 
-    <!-- Custom Scripts for Full Calendar-->
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.19/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.19/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.19/index.global.min.js'></script>
-
-    <!-- Bootstrap core JavaScript-->
+    <!-- jQuery -->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
+    
+    <!-- Bootstrap -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" 
+    href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    
+    <!-- jQuery Easing -->
     <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- spapp plugin (small SPA loader) -->
+    
+    <!-- SPApp -->
     <script src="assets/vendor/jquery/jquery.spapp.min.js"></script>
-    <!-- application SPA config -->
     <script src="js/spapp.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
-
-    <!-- Custom scripts for all pages-->
+    
+    <!-- Custom scripts -->
     <script src="js/esras.min.js"></script>
+    <script src="js/auth.js"></script>
+    
+   
+   
 </body>
 
 </html>
