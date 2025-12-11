@@ -28,11 +28,31 @@ $(function(){
                         // allow a tiny delay to ensure the view DOM is attached
                         setTimeout(function(){ window.initFullCalendar('calendar'); }, 0);
                     }
+
+                    if (viewId === 'courses') {
+
+                        // dataTable already exists, just reload it
+                        if ($.fn.DataTable.isDataTable('#dataTableCourses')) {
+                            $('#dataTableCourses').DataTable().ajax.reload(null, false);
+                        } 
+                        else { // load courses.js to initialize everything 
+                            $.getScript("js/datatables/courses.js");
+                        }
+                    }
+
+                    if (viewId === 'rooms') {
+                        // dataTable already exists, just reload it
+                        if ($.fn.DataTable.isDataTable('#dataTableRooms')) {
+                            $('#dataTableRooms').DataTable().ajax.reload(null, false);
+                        } 
+                        else { // load courses.js to initialize everything 
+                            $.getScript("js/datatables/rooms.js");
+                        }
+                    }
                 }
             });
         })(id);
     });
 
-    // start the SPA router after routes are registered
     app.run();
 });
