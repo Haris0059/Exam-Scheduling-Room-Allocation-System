@@ -37,33 +37,31 @@ Flight::register('room_allocation_service', 'RoomAllocationService');
 require_once __DIR__ . '/rest/services/ExamService.php';
 Flight::register('exam_service', 'ExamService');
 
-Flight::route('/*', function() {
+require_once __DIR__ . '/rest/services/FacultyService.php';
+Flight::register('faculty_service', 'FacultyService');
+
+require_once __DIR__ . '/rest/services/DepartmentService.php';
+Flight::register('department_service', 'DepartmentService');
+
+Flight::route('/*', function () {
+
+    error_log("MIDDLEWARE HIT: " . Flight::request()->url);
 
     $url = Flight::request()->url;
 
-    // Allow home page and login without authentication
-    if ($url === '/' || strpos($url, '/auth/login') === 0) {
+    if (
+        strpos($url, '/auth/login') !== false ||
+        strpos($url, '/auth/set-password') !== false
+    ) {
+        error_log("MIDDLEWARE BYPASS");
         return TRUE;
     }
 
-    try {
-        $token = Flight::request()->getHeader("Authentication");
+    error_log("MIDDLEWARE BLOCK");
 
-        if (!$token) {
-            Flight::halt(401, "Missing authentication header");
-        }
-
-        $decoded_token = JWT::decode($token, new Key(Config::JWT_SECRET(), 'HS256'));
-
-        Flight::set('user', $decoded_token->user);
-        Flight::set('jwt_token', $token);
-
-        return TRUE;
-
-    } catch (\Exception $e) {
-        Flight::halt(401, $e->getMessage());
-    }
+    Flight::halt(401, "Blocked by middleware");
 });
+
 
 
 require_once __DIR__ . '/rest/routes/EmployeeRoute.php';
@@ -74,6 +72,8 @@ require_once __DIR__ . '/rest/routes/RoomRoute.php';
 require_once __DIR__ . '/rest/routes/RoomAllocationRoute.php';
 require_once __DIR__ . '/rest/routes/ExamRoute.php';
 require_once __DIR__ . '/rest/routes/AuthRoute.php';
+require_once __DIR__ . '/rest/routes/FacultyRoute.php';
+require_once __DIR__ . '/rest/routes/DepartmentRoute.php';
 
 // Default route
 Flight::route('/', function(){  

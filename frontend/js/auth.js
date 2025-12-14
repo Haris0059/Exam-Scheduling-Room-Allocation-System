@@ -1,14 +1,12 @@
 (function () {
     const token = localStorage.getItem("token");
-    console.log("Token found:", token);
-
-    // If no token, redirect to login
+    
     if (!token) {
         window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/views/login.html";
         return;
     }
 
-    // Validate token expiration (JWT exp claim)
+    // validate token expiration
     try {
         const payload = JSON.parse(atob(token.split(".")[1]));
         const now = Date.now() / 1000;

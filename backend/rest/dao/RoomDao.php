@@ -83,7 +83,6 @@ class RoomDao extends BaseDao
                 r.coord_z, r.seat_capacity DESC;
         ";
 
-        // Parameters for the query in order
         $params = [
             $required_room_type,
             $date,
@@ -91,7 +90,6 @@ class RoomDao extends BaseDao
             $start_time  // (e.end > $start_time)
         ];
 
-        // This query method should exist in your BaseDao
         return $this->query($sql, $params);
     }
 }

@@ -4,7 +4,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- DataTales Example -->  
+    <!-- DataTables Example -->  
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
         <h6 class="m-0 font-weight-bold text-primary">Employees</h6>
@@ -27,18 +27,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Haris Skeledzija</td>
-                            <td>haris.skeledzija@stu.ibu.edu.ba</td>
-                            <td>Admin</td>
-                            <td>FENMS</td>
-                            <td class="actions-column">
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " data-toggle="modal" data-target="#editEmployeeModal">
-                                <i class="fas fa-edit fa-sm text-white-50"></i> Edit</a>
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" data-toggle="modal" data-target="#removeEmployeeModal">
-                                <i class="fas fa-times fa-sm text-white-50"></i> Remove</a>
-                            </td>
                         </tr>
-                        
                     </tbody>
                 </table>                        
             </div>
@@ -124,7 +113,7 @@
             <div class="modal-footer">
                 <a class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2" data-dismiss="modal">
                 <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                <a id="confirmRemoveEmployeeBtn" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
                 <i class="fas fa-times fa-sm text-white-50"></i> Remove</a>
             </div>
         </div>
@@ -145,44 +134,59 @@
             <div class="modal-body justify-content-center">
                 <div class="card-body p-0">
                     <div class="col-lg-12">
-                        <form class="user">
+                        <form class="user" id="addEmployeeForm">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="code"
+                                    <label for="firstName" class="font-weight-bold text-primary medium">First Name</label>
+                                    <input type="text" class="form-control form-control-user" id="firstName"
                                         placeholder="First Name">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="building"
+                                    <label for="lastName" class="font-weight-bold text-primary medium">Last Name</label>
+                                    <input type="text" class="form-control form-control-user" id="lastName"
                                         placeholder="Last Name">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-6 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="type"
+                                    <label for="email" class="font-weight-bold text-primary medium">Email</label>
+                                    <input type="email" class="form-control form-control-user" id="email"
                                         placeholder="Email">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="type"
-                                        placeholder="Role">
+                                    <label for="role" class="font-weight-bold text-primary medium">Role</label>
+                                    <select id="role" class="form-control">
+                                        <option value="">Select role</option>
+                                        <option value="admin">ADMIN</option>
+                                        <option value="professor">PROFESSOR</option>
+                                        <option value="assistant">ASSISTANT</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="type"
-                                        placeholder="Faculty">
+                                    <label for="faculty" class="font-weight-bold text-primary medium">Faculty</label>
+                                    <select id="faculty" class="form-control">
+                                        <option value="">Select department</option>
+                                        <option value="1">Faculty Of Engineering, Natural and Medical Sciences</option>
+                                        <option value="2">Faculty of Economics and Social Sciences</option>
+                                        <option value="3">Faculty Of Education and Humanities</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="seatCapacity"
-                                        placeholder="Department">
+                                    <label for="department" class="font-weight-bold text-primary medium">Department</label>
+                                    <select id="department" class="form-control">
+                                        <option value="">Select department</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
                                 <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2" data-dismiss="modal">
                                 <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+                                <button class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</button>
                             </div>          
                         </form>   
                     </div>

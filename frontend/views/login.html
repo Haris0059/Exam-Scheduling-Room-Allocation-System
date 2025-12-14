@@ -36,7 +36,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user">
+                                <form class="user" id="loginForm">
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user"
                                     id="email" aria-describedby="emailHelp"
@@ -72,6 +72,44 @@
         </div>  
 
     </div>      
+
+    <!-- Edit Employee Modal-->
+    <div class="modal fade" id="setPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold text-primary" id="exampleModalLabel">Set Password</h5>
+                </div>
+                <div class="modal-body justify-content-center">
+                    <p>Insert text here.</p>
+                    <div class="card-body p-0">
+                        <div class="col-lg-12">
+                            <form class="user" id="setPasswordForm">
+                                <div class="form-group row">
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label for="firstTimePassword" class="font-weight-bold text-primary medium">Password</label>
+                                        <input type="password" class="form-control form-control-user" id="firstTimePassword"
+                                            placeholder="Password">
+                                    </div>
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label for="firstTimeRepeatPassword" class="font-weight-bold text-primary medium">Repeat Password</label>
+                                        <input type="password" class="form-control form-control-user" id="firstTimeRepeatPassword"
+                                            placeholder="Repeat Password">
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                    <i class="fas fa-pencil-alt fa-sm text-white-50"></i> Set Password</button>
+                                </div>           
+                            </form>   
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -87,37 +125,89 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
     <script>
-    $(document).ready(function() {
-
-        $('.user').on('submit', function(e) {
+    $(function () {
+    
+        $('#loginForm').on('submit', function (e) {
             e.preventDefault();
-
-            const email = $('#email').val();
-            const password = $('#password').val();
-
+                
+            const email = $('#email').val().trim();
+            const password = $('#password').val().trim();
+                
             $.ajax({
                 url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/login",
                 method: "POST",
-                data: {
-                    email: email,
-                    password: password
-                },
-                success: function(response) {
-                    // Store JWT in localStorage
+                data: { email, password },
+                success: function (response) {
+                
+                    // FIRST LOGIN → OPEN MODAL
+                    if (response.status === "password_required") {
+                        window.tempUserId = response.data.user_id;
+                    
+                        $('#setPasswordModal').modal({
+                            backdrop: 'static',
+                            keyboard: false,
+                            show: true
+                        });
+                        return;
+                    }
+                
+                    // NORMAL LOGIN
                     localStorage.setItem("token", response.data.token);
-
-                    // Redirect to dashboard
-                    window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
+                    window.location.href =
+                        "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
                 },
-                error: function(xhr) {
-                    toastr.error("Invalid email or password", "Error");
+                error: function () {
+                    toastr.error("Invalid email or password");
                 }
             });
-
         });
 
+    
+    
+        $('#setPasswordForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const pass1 = $('#firstTimePassword').val().trim();
+            const pass2 = $('#firstTimeRepeatPassword').val().trim();
+
+            if (!pass1 || !pass2) {
+                toastr.error("All fields are required");
+                return;
+            }
+        
+            if (pass1.length < 8) {
+                toastr.error("Password must be at least 8 characters");
+                return;
+            }
+        
+            if (pass1 !== pass2) {
+                toastr.error("Passwords do not match");
+                return;
+            }
+        
+            $.ajax({
+                url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/set-password",
+                method: "POST",
+                data: {
+                    user_id: window.tempUserId,
+                    password: pass1
+                },
+                success: function (res) {
+                    localStorage.setItem("token", res.data.token);
+                    $('#setPasswordModal').modal('hide');
+                
+                    window.location.href =
+                        "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
+                },
+                error: function (xhr) {
+                    toastr.error(xhr.responseText || "Failed to set password");
+                }
+            });
+        });
     });
+
     </script>
+
 
 
 </body>

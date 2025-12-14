@@ -5,87 +5,124 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 
-class AuthService extends BaseService {
+class AuthService {
    private $auth_dao;
-   public function __construct() {
-       $this->auth_dao = new AuthDao();
-       parent::__construct(new AuthDao);
-   }
 
-
-   public function get_user_by_email($email){
-       return $this->auth_dao->get_user_by_email($email);
-   }
-
-
-   public function register($entity) {  
-    if (empty($entity['email']) || empty($entity['password'])) {
-        return ['success' => false, 'error' => 'Email and password are required.'];
+    public function __construct() {
+        $this->auth_dao = new AuthDao();
     }
 
-    // Check if the email is already registered
-    $email_exists = $this->auth_dao->get_user_by_email($entity['email']);
-    if ($email_exists) {
-        return ['success' => false, 'error' => 'Email already registered.'];
+
+    public function login($entity) {
+
+        if (empty($entity['email'])) {
+            throw new Exception("Email is required");
+        }
+
+        $user = $this->auth_dao->get_user_by_email($entity['email']);
+        if (!$user) {
+            throw new Exception("Invalid email or password");
+        }
+
+        // FIRST LOGIN → PASSWORD NOT SET
+        if ($user['password'] === NULL) {
+            return [
+                'status' => 'password_required',
+                'data' => [
+                    'user_id' => $user['id']
+                ]
+            ];
+        }
+
+        if (empty($entity['password']) ||
+            !password_verify($entity['password'], $user['password'])) {
+            throw new Exception("Invalid email or password");
+        }
+
+        unset($user['password']);
+
+        $payload = [
+            'id'   => $user['id'],
+            'role' => $user['role'],
+            'iat'  => time(),
+            'exp'  => time() + (60 * 60 * 24)
+        ];
+
+        $token = JWT::encode(
+            $payload,
+            Config::JWT_SECRET(),
+            'HS256'
+        );
+
+        return [
+            'status' => 'ok',
+            'data' => [
+                'token' => $token
+            ]
+        ];
     }
 
-    // Assign admin role ONLY if this is the first account
-    $count = $this->auth_dao->count_all_employees();
-    if ($count == 0) {
-        $entity['role'] = 'admin';
-        $entity['faculty_id'] = '1';
-    } else {
-        $entity['role'] = 'employee';   // or "assistant", "professor", etc.
+    // SET PASSWORD (FIRST LOGIN ONLY)
+    public function set_password($entity) {
+
+        if (empty($entity['user_id']) || empty($entity['password'])) {
+            throw new Exception("Invalid request");
+        }
+
+        if (!$this->auth_dao->is_password_null($entity['user_id'])) {
+            throw new Exception("Password already set");
+        }
+
+        $hashed = password_hash($entity['password'], PASSWORD_BCRYPT);
+
+        $this->auth_dao->set_password($entity['user_id'], $hashed);
+
+        $user = $this->auth_dao->get_user_by_id($entity['user_id']);
+        unset($user['password']);
+
+        $payload = [
+            'id'   => $user['id'],
+            'role' => $user['role'],
+            'iat'  => time(),
+            'exp'  => time() + (60 * 60 * 24)
+        ];
+
+        $token = JWT::encode(
+            $payload,
+            Config::JWT_SECRET(),
+            'HS256'
+        );
+
+        return [
+            'status' => 'ok',
+            'data' => [
+                'token' => $token
+            ]
+        ];
     }
 
-    // Hash password
-    $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
+    // CURRENT USER
+    public function get_current_user() {
 
-    // Insert into DB
-    $entity = parent::add($entity);
+        $headers = getallheaders();
+        if (!isset($headers['Authorization'])) {
+            throw new Exception("Missing Authorization header");
+        }
 
-    // Do not return password
-    unset($entity['password']);
+        $token = str_replace('Bearer ', '', $headers['Authorization']);
 
-    return ['success' => true, 'data' => $entity];
-}
+        $decoded = JWT::decode(
+            $token,
+            new Key(Config::JWT_SECRET(), 'HS256')
+        );
 
+        $user = $this->auth_dao->get_user_by_id($decoded->id);
+        if (!$user) {
+            throw new Exception("User not found");
+        }
 
-
-   public function login($entity) {  
-       if (empty($entity['email']) || empty($entity['password'])) {
-           return ['success' => false, 'error' => 'Email and password are required.'];
-       }
-
-
-       $user = $this->auth_dao->get_user_by_email($entity['email']);
-       if(!$user){
-           return ['success' => false, 'error' => 'Invalid username or password.'];
-       }
-
-
-       if(!$user || !password_verify($entity['password'], $user['password']))
-           return ['success' => false, 'error' => 'Invalid username or password.'];
-
-
-       unset($user['password']);
-      
-       $jwt_payload = [
-           'user' => $user,
-           'iat' => time(),
-           // If this parameter is not set, JWT will be valid for life. This is not a good approach
-           'exp' => time() + (60 * 60 * 24) // valid for day
-       ];
-
-
-       $token = JWT::encode(
-           $jwt_payload,
-           Config::JWT_SECRET(),
-           'HS256'
-       );
-
-
-       return ['success' => true, 'data' => array_merge($user, ['token' => $token])];             
-   }
+        unset($user['password']);
+        return $user;
+    }
 
 }

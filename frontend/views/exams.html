@@ -31,8 +31,10 @@
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-3 mb-sm-0">
                                     <label for="type" class="font-weight-bold text-primary medium">Course Name</label>
-                                    <input type="text" class="form-control form-control-user" id="courseName"
+                                    <select class="form-control" id="courseId"
                                         placeholder="Course Name">
+                                        <option value="">Loading courses..</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -67,20 +69,20 @@
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="typeOfRoom" class="font-weight-bold text-primary medium">Type Of Room</label>
-                                    <select id="typeOfExam" class="form-control">
+                                    <select id="typeOfRoom" class="form-control">
                                          <option></option>
                                         <option value="standard">STANDARD</option>
                                         <option value="it">IT</option>
                                         <option value="lecturehall">LECTURE HALL</option>
-                                    
+                                
                                     </select>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
                                 <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2" data-dismiss="modal">
                                 <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+                                <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</button>
                             </div>           
                         </form>   
                     </div>
