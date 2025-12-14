@@ -22,4 +22,3 @@
         window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/views/login.html";
     }
 })();
-
