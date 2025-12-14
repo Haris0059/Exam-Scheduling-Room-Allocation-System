@@ -16,7 +16,6 @@
                     <thead>
                         <tr>
                             <th>Code</th>
-
                             <th>Type</th>
                             <th>Seat Capacity</th>
                             <th class="actions-column">Actions</th>
@@ -52,37 +51,40 @@
                         <form class="user">
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <label for="coord_x" class="font-weight-bold text-primary medium">Code / Name</label>
-                                    <input type="text" class="form-control form-control-user" id="code"
+                                    <label for="editCode" class="font-weight-bold text-primary medium">Code</label>
+                                    <input type="text" class="form-control form-control-user" id="editCode"
                                         placeholder="Code">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <label for="coord_x" class="font-weight-bold text-primary medium">Type</label>
-                                    <input type="text" class="form-control form-control-user" id="type"
-                                        placeholder="Type">
+                                    <label for="type" class="font-weight-bold text-primary medium">Type</label>
+                                    <select id="editType" class="form-control">
+                                        <option value="standard">STANDARD</option>
+                                        <option value="it">IT</option>
+                                        <option value="lecturehall">LECTUREHALL</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="coord_x" class="font-weight-bold text-primary medium">Seat Capacity</label>
-                                    <input type="text" class="form-control form-control-user" id="seatCapacity"
+                                    <label for="editSeatCapcity" class="font-weight-bold text-primary medium">Seat Capacity</label>
+                                    <input type="text" class="form-control form-control-user" id="editSeatCapacity"
                                         placeholder="Seat Capacity">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-4">
-                                    <label for="coord_x" class="font-weight-bold text-primary medium">Coordinate X</label>
-                                    <input type="text" class="form-control form-control-user" id="coord_x"
+                                    <label for="editCoord_x" class="font-weight-bold text-primary medium">Coordinate X</label>
+                                    <input type="text" class="form-control form-control-user" id="editCoord_x"
                                         placeholder="Coordinate X">
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="coord_x" class="font-weight-bold text-primary medium">Coordinate Y</label>
-                                    <input type="text" class="form-control form-control-user" id="coord_y"
+                                    <label for="editCoord_y" class="font-weight-bold text-primary medium">Coordinate Y</label>
+                                    <input type="text" class="form-control form-control-user" id="editCoord_y"
                                         placeholder="Coordinate Y">
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="coord_x" class="font-weight-bold text-primary medium">Coordinate Z</label>
-                                    <input type="text" class="form-control form-control-user" id="coord_z"
+                                    <label for="editCoord_z" class="font-weight-bold text-primary medium">Coordinate Z</label>
+                                    <input type="text" class="form-control form-control-user" id="editCoord_z"
                                         placeholder="Coordinate Z">
                                 </div>
                             </div>
@@ -115,7 +117,7 @@
             <div class="modal-footer">
                 <a class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2" data-dismiss="modal">
                 <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                <a id="confirmRemoveRoomBtn" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
                 <i class="fas fa-times fa-sm text-white-50"></i> Remove</a>
             </div>
         </div>
@@ -138,30 +140,50 @@
                     <div class="col-lg-12">
                         <form class="user">
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <label for="coord_x" class="font-weight-bold text-primary medium">Code / Name</label>
                                     <input type="text" class="form-control form-control-user" id="code"
                                         placeholder="Code">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="building"
-                                        placeholder="Building">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="type"
-                                        placeholder="Type">
+                                    <label for="coord_x" class="font-weight-bold text-primary medium">Type</label>
+                                    <select id="type" class="form-control">
+                                        <option></option>
+                                        <option value="standard">STANDARD</option>
+                                        <option value="it">IT</option>
+                                        <option value="lecturehall">LECTUREHALL</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-6">
+                                    <label for="coord_x" class="font-weight-bold text-primary medium">Seat Capacity</label>
                                     <input type="text" class="form-control form-control-user" id="seatCapacity"
                                         placeholder="Seat Capacity">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label for="coord_x" class="font-weight-bold text-primary medium">Coordinate X</label>
+                                    <input type="text" class="form-control form-control-user" id="coord_x"
+                                        placeholder="Coordinate X">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="coord_x" class="font-weight-bold text-primary medium">Coordinate Y</label>
+                                    <input type="text" class="form-control form-control-user" id="coord_y"
+                                        placeholder="Coordinate Y">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="coord_x" class="font-weight-bold text-primary medium">Coordinate Z</label>
+                                    <input type="text" class="form-control form-control-user" id="coord_z"
+                                        placeholder="Coordinate Z">
                                 </div>
                             </div>
                             <div class="row justify-content-end">
                                 <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2" data-dismiss="modal">
                                 <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+                                <button type="submit" id="addRoomSubmitBtn" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</button>
                             </div>           
                         </form>   
                     </div>
