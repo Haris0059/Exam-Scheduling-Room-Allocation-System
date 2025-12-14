@@ -11,6 +11,7 @@ window.initFullCalendar = function(selector) {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
+        allDaySlot: false,
         headerToolbar: {
             right: 'prev,today,next',
             center: 'title',
@@ -22,11 +23,37 @@ window.initFullCalendar = function(selector) {
             list: 'List',
             today: 'Today'
         },
-        events: [{
-            title: 'Web Programming Final Exam',
-            start: '2025-10-17T12:00',
-            end: '2025-10-17T14:00'
-        }],
+        events: function (info, successCallback, failureCallback) {
+            fetch("http://localhost/Exam-Scheduling-Room-Allocation-System/backend/exams", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                const exams = Array.isArray(res)
+                    ? res
+                    : Array.isArray(res.data)
+                        ? res.data
+                        : [];
+            
+                const events = exams.map(exam => ({
+                    title: `Course #${exam.course_id} (${exam.type})`,
+                    start: `${exam.date}T${exam.start}`,
+                    end: `${exam.date}T${exam.end}`,
+                    extendedProps: {
+                        course_id: exam.course_id,
+                        type: exam.type
+                    }
+                }));
+            
+                successCallback(events);
+            })
+            .catch(err => {
+                console.error(err);
+                failureCallback(err);
+            });
+        },
         businessHours: {
             daysOfWeek: [1,2,3,4,5],
             startTime: '09:00',
