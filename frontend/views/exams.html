@@ -30,37 +30,59 @@
                         <form class="user">
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="code"
-                                        placeholder="Course">
+                                    <label for="type" class="font-weight-bold text-primary medium">Course Name</label>
+                                    <select class="form-control" id="courseId"
+                                        placeholder="Course Name">
+                                        <option value="">Loading courses..</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="type"
+                                    <label for="startTime" class="font-weight-bold text-primary medium">Start Time</label>
+                                    <input type="time" class="form-control form-control-user" id="startTime"
                                         placeholder="Start Time">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="seatCapacity"
+                                    <label for="endTime" class="font-weight-bold text-primary medium">End Time</label>
+                                    <input type="time" class="form-control form-control-user" id="endTime"
                                         placeholder="End Time">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="code"
+                                    <label for="date" class="font-weight-bold text-primary medium">Date</label>
+                                    <input type="date" class="form-control form-control-user" id="date"
                                         placeholder="Date">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="code"
-                                        placeholder="Type">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="typeOfExam" class="font-weight-bold text-primary medium">Type Of Exam</label>
+                                    <select id="typeOfExam" class="form-control">
+                                        <option></option>
+                                        <option value="final">FINAL</option>
+                                        <option value="midterm">MIDTERM</option>
+                                        <option value="makeupFinal">MAKEUP FINAL</option>
+                                        <option value="makeupMidterm">MAKEUP MIDTERM</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="typeOfRoom" class="font-weight-bold text-primary medium">Type Of Room</label>
+                                    <select id="typeOfRoom" class="form-control">
+                                         <option></option>
+                                        <option value="standard">STANDARD</option>
+                                        <option value="it">IT</option>
+                                        <option value="lecturehall">LECTURE HALL</option>
+                                
+                                    </select>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
                                 <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2" data-dismiss="modal">
                                 <i class="fas fa-times fa-sm text-white-50"></i> Cancel</a>
-                                <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+                                <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Add</button>
                             </div>           
                         </form>   
                     </div>

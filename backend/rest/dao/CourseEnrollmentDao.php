@@ -23,5 +23,22 @@ class CourseEnrollmentDao extends BaseDao
         // IT HAS TO RETURN A INTEGER!!!!!!!!!!!!!!!!!!!!!!!!
         return (int)$result['total'];
     }
+
+    public function getCourseStudents($course_id)
+    {
+        $query = "
+            SELECT ce.student_id,
+                   CONCAT(s.first_name, ' ', s.last_name) AS full_name,
+                   s.academic_level,
+                   d.name AS department
+            FROM course_enrollments ce
+            JOIN students s ON ce.student_id = s.id
+            LEFT JOIN departments d ON s.department_id = d.id
+            WHERE ce.course_id = :course_id
+              AND ce.status = 'active'
+        ";
+    
+        return $this->query($query, ["course_id" => $course_id]);
+    }
 }
 ?>

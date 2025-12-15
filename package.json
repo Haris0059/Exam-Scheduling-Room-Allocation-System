@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "fullcalendar": "^6.1.19",
-    "fullcalendar-scheduler": "^6.1.19",
-    "perfect-scrollbar": "^1.5.6"
-  }
-}

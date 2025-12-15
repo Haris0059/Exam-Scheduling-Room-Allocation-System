@@ -34,7 +34,7 @@ CREATE TABLE `course_enrollments` (
   KEY `course_id` (`course_id`),
   CONSTRAINT `course_enrollments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   CONSTRAINT `course_enrollments_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `course_enrollments` (
 --
 
 /*!40000 ALTER TABLE `course_enrollments` DISABLE KEYS */;
+INSERT INTO `course_enrollments` (`id`, `student_id`, `course_id`, `academic_year`, `semester`, `status`) VALUES (2,2,1,NULL,0,'active'),(3,3,1,NULL,0,'active'),(4,4,1,NULL,0,'active'),(5,5,1,NULL,0,'active'),(6,6,1,NULL,0,'active'),(7,7,1,NULL,0,'active'),(8,8,1,NULL,0,'active'),(9,9,1,NULL,0,'active'),(10,10,1,NULL,0,'active');
 /*!40000 ALTER TABLE `course_enrollments` ENABLE KEYS */;
 
 --
@@ -118,7 +119,7 @@ CREATE TABLE `departments` (
   PRIMARY KEY (`id`),
   KEY `faculty_id` (`faculty_id`),
   CONSTRAINT `departments_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +127,7 @@ CREATE TABLE `departments` (
 --
 
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
-INSERT INTO `departments` (`id`, `name`, `faculty_id`) VALUES (1,'Information Technology',1),(2,'Electircal and Electronics Engineering',1),(3,'Genetics and Bioengineering',1),(4,'Arhitecture',1),(5,'Civil Engineering',1),(6,'Dentistry',1);
+INSERT INTO `departments` (`id`, `name`, `faculty_id`) VALUES (1,'Information Technology',1),(2,'Electircal and Electronics Engineering',1),(3,'Genetics and Bioengineering',1),(4,'Arhitecture',1),(5,'Civil Engineering',1),(6,'Dentistry',1),(7,'Management',2),(8,'International Relations and European Studies',2),(9,'Economics and Finance',2),(10,'Graphic Design and Multimedia',3),(11,'Digital Communications and Public Relations',3),(12,'Film and Video Production',3),(13,'English Language and Literature',3);
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 
 --
@@ -151,7 +152,7 @@ CREATE TABLE `employees` (
   KEY `department_id` (`department_id`),
   CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`id`),
   CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,6 +160,7 @@ CREATE TABLE `employees` (
 --
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `status`, `faculty_id`, `department_id`) VALUES (1,'Haris','Skeledzija','haris.skeledzija@stu.ibu.edu.ba','$2y$10$L2kGTz2hcIFzG71UzlvzDucUXX762DTZJnvFfubCjMhSTdAb3sgHu','admin',NULL,1,NULL),(4,'Web Programming','Testing','testing@gmail.com','$2y$10$hzewnNPPvZJX4PWyQaJBMOrBhCI9ocuFMwPDjIK2eNnd9EdsZtOc6','admin',NULL,1,1);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
 --
@@ -200,11 +202,12 @@ CREATE TABLE `exams` (
   `start` time NOT NULL,
   `end` time NOT NULL,
   `type` enum('midterm','final','makeup_midterm','makeup_final') DEFAULT NULL,
+  `room_type` enum('standard','it','lecturehall') NOT NULL,
   `course_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `exams_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,6 +215,7 @@ CREATE TABLE `exams` (
 --
 
 /*!40000 ALTER TABLE `exams` DISABLE KEYS */;
+INSERT INTO `exams` (`id`, `date`, `start`, `end`, `type`, `room_type`, `course_id`) VALUES (1,'2025-12-20','10:00:00','12:00:00','final','standard',1),(3,'2025-12-20','10:00:00','12:00:00','final','standard',1),(4,'2025-12-22','10:00:00','12:00:00','final','standard',1),(5,'2025-12-23','00:00:00','13:00:00','final','standard',1),(6,'2025-12-25','00:00:00','02:00:00','midterm','it',1);
 /*!40000 ALTER TABLE `exams` ENABLE KEYS */;
 
 --
@@ -225,7 +229,7 @@ CREATE TABLE `faculty` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,7 +237,7 @@ CREATE TABLE `faculty` (
 --
 
 /*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-INSERT INTO `faculty` (`id`, `name`) VALUES (1,'Faculty of Engineering, Natural and Medical Sciences'),(2,'Faculty of Economics and Social Sciences'),(3,'Faculty of Education and Humanities');
+INSERT INTO `faculty` (`id`, `name`) VALUES (1,'Faculty of Engineering, Natural and Medical Sciences'),(2,'Faculty of Economics and Social Sciences'),(3,'Faculty of Education and Humanities'),(4,'Faculty of Engineering');
 /*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 
 --
@@ -252,7 +256,7 @@ CREATE TABLE `rooms` (
   `coord_y` int(11) DEFAULT NULL,
   `coord_z` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,6 +264,7 @@ CREATE TABLE `rooms` (
 --
 
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
+INSERT INTO `rooms` (`id`, `code`, `type`, `seat_capacity`, `coord_x`, `coord_y`, `coord_z`) VALUES (5,320,'standard',50,10,20,1),(11,123,'standard',31,1,2,3);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
 --
@@ -281,7 +286,7 @@ CREATE TABLE `students` (
   PRIMARY KEY (`id`),
   KEY `department_id` (`department_id`),
   CONSTRAINT `students_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +294,7 @@ CREATE TABLE `students` (
 --
 
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `academic_level`, `semester`, `status`, `department_id`) VALUES (1,'Jane','Doe','jane.doe@test.com','bachelor',4,'inactive',1),(2,'Nadza','Hasanovic','nadza@test.com',NULL,NULL,'active',1);
+INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `academic_level`, `semester`, `status`, `department_id`) VALUES (1,'Jane','Doe','jane.doe@test.com','bachelor',4,'inactive',1),(2,'Nadza','Hasanovic','nadza@test.com','bachelor',3,'active',1),(3,'Alice','Smith','alice.smith@test.com','bachelor',3,'active',1),(4,'Bob','Johnson','bob.johnson@test.com','bachelor',3,'active',1),(5,'Charlie','Williams','charlie.williams@test.com','bachelor',3,'active',1),(6,'David','Brown','david.brown@test.com','bachelor',3,'active',1),(7,'Emily','Jones','emily.jones@test.com','bachelor',3,'active',1),(8,'Frank','Garcia','frank.garcia@test.com','bachelor',3,'active',1),(9,'Grace','Miller','grace.miller@test.com','bachelor',3,'active',1),(10,'Henry','Davis','henry.davis@test.com','bachelor',3,'active',1),(11,'Isabella','Rodriguez','isabella.rodriguez@test.com','bachelor',3,'active',1),(12,'Jack','Martinez','jack.martinez@test.com','bachelor',3,'active',1),(13,'Kate','Hernandez','kate.hernandez@test.com','bachelor',3,'active',1),(14,'','','',NULL,NULL,'inactive',NULL),(15,'Mia','Gonzalez','mia.gonzalez@test.com','bachelor',3,'active',1),(16,'Noah','Wilson','noah.wilson@test.com','bachelor',3,'active',1),(17,'Olivia','Anderson','olivia.anderson@test.com','bachelor',3,'active',1),(18,'Peter','Thomas','peter.thomas@test.com','bachelor',3,'active',1),(19,'Quinn','Taylor','quinn.taylor@test.com','bachelor',3,'active',1),(20,'Test','test','test@gmail.com','master',6,'active',1);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
 --
@@ -305,4 +310,4 @@ INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `academic_leve
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-17  0:16:19
+-- Dump completed on 2025-12-14 20:28:57

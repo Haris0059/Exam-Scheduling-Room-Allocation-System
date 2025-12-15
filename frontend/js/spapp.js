@@ -27,12 +27,42 @@ $(function(){
                     if (viewId === 'exams' && typeof window.initFullCalendar === 'function') {
                         // allow a tiny delay to ensure the view DOM is attached
                         setTimeout(function(){ window.initFullCalendar('calendar'); }, 0);
+                        $.getScript("js/exams.js");
+                    }
+
+                    if (viewId === 'courses') {
+
+                        // dataTable already exists, just reload it
+                        if ($.fn.DataTable.isDataTable('#dataTableCourses')) {
+                            $('#dataTableCourses').DataTable().ajax.reload(null, false);
+                        } 
+                        else { // load courses.js to initialize everything 
+                            $.getScript("js/datatables/courses.js");
+                        }
+                    }
+
+                    if (viewId === 'rooms') {
+                        // dataTable already exists, just reload it
+                        if ($.fn.DataTable.isDataTable('#dataTableRooms')) {
+                            $('#dataTableRooms').DataTable().ajax.reload(null, false);
+                        } 
+                        else { // load rooms.js to initialize everything 
+                            $.getScript("js/datatables/rooms.js");
+                        }
+                    }
+
+                    if (viewId === 'employees') {
+                        if ($.fn.DataTable.isDataTable('#dataTableEmployees')) {
+                            $('#dataTableEmployees').DataTable().ajax.reload(null, false);
+                        } 
+                        else { // load employees.js to initialize everything 
+                            $.getScript("js/datatables/employees.js");
+                        }
                     }
                 }
             });
         })(id);
     });
 
-    // start the SPA router after routes are registered
     app.run();
 });
