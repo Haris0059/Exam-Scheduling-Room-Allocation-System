@@ -21,8 +21,7 @@
 Flight::route('GET /enrollments/course/@id/count', function ($id) {
     try {
         $count = Flight::course_enrollment_service()->getCountByCourse($id);
-        
-        // Return a clean JSON object, not just a number
+
         Flight::json([
             'course_id' => (int)$id,
             'active_students' => $count
@@ -103,7 +102,7 @@ Flight::route('PUT /enrollments/@id', function ($id) {
     try {
         $data = Flight::request()->data->getData();
         $updated_enrollment = Flight::course_enrollment_service()->update($id, $data);
-        
+
         if (!$updated_enrollment) {
             Flight::json(['error' => 'Enrollment not found'], 404);
         } else {
@@ -122,7 +121,7 @@ Flight::route('PUT /enrollments/@id', function ($id) {
  * summary="Delete an enrollment",
  * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
  * @OA\Response(response=200, description="Enrollment deleted"),
- * @OA\Response(response=444, description="Enrollment not found")
+ * @OA\Response(response=404, description="Enrollment not found")
  * )
  */
 Flight::route('DELETE /enrollments/@id', function ($id) {
@@ -134,39 +133,34 @@ Flight::route('DELETE /enrollments/@id', function ($id) {
     }
 });
 
+
 /**
  * @OA\Get(
  *   path="/enrollments/course/{id}",
  *   tags={"Course Enrollments"},
- *   summary="Get all students enrolled in a specific course",
+ *   summary="Get paginated students enrolled in a course (DataTables server-side)",
+ *
  *   @OA\Parameter(
  *       name="id",
  *       in="path",
  *       required=true,
- *       description="The Course ID",
+ *       description="Course ID",
  *       @OA\Schema(type="integer")
  *   ),
+ *   @OA\Parameter(name="draw", in="query", @OA\Schema(type="integer")),
+ *   @OA\Parameter(name="start", in="query", @OA\Schema(type="integer", example=0)),
+ *   @OA\Parameter(name="length", in="query", @OA\Schema(type="integer", example=10)),
+ *   @OA\Parameter(name="search[value]", in="query", @OA\Schema(type="string")),
+ *
  *   @OA\Response(
  *       response=200,
- *       description="List of students enrolled in the course"
- *   ),
- *   @OA\Response(
- *       response=404,
- *       description="Course not found or no enrollments"
+ *       description="DataTables compatible paginated response"
  *   )
  * )
  */
-Flight::route('GET /enrollments/course/@id', function($id){
-    try {
-        $students = Flight::course_enrollment_service()->getCourseStudents($id);
-
-        Flight::json([
-            "course_id" => (int)$id,
-            "data" => $students
-        ], 200);
-
-    } catch (Exception $e) {
-        Flight::json(["error" => $e->getMessage()], 500);
+Flight::route(
+    'GET /enrollments/course/@id',
+    function ($id) {
+        Flight::course_enrollment_service()->getStudentsByCourse($id);
     }
-});
-
+);

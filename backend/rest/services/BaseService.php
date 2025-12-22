@@ -29,6 +29,10 @@ class BaseService {
     public function delete($id) {
         return $this->dao->delete($id);
     }
+
+    public function getConnection() {
+        return $this->dao->getConnection();
+    }
 }
 ?>
 

@@ -99,5 +99,11 @@ class BaseDao
     public function getById($id) {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
     }
+
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
 }
 ?>

@@ -57,10 +57,12 @@ $(function () {
 
         // modal dataTable for students
         studentsTable = $('#dataTableStudents').DataTable({
+            processing: true,
+            serverSide: true,
+
             ajax: {
                 url: `http://localhost/Exam-Scheduling-Room-Allocation-System/backend/enrollments/course/${courseId}`,
                 type: "GET",
-                dataSrc: "data",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
