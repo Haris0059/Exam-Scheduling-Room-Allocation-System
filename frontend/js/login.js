@@ -27,7 +27,7 @@ $(function () {
                     toastr.success("Login successful!");
                     
                     setTimeout(() => {
-                        window.location.href = "/frontend/index.html";
+                        window.location.href = "/index.html";
                     }, 500);
                 } else {
                     toastr.error("Unexpected response from server");

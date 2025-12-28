@@ -7,6 +7,6 @@
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        window.location.href = "/frontend/views/login.html";
+        window.location.href = "/views/login.html";
     });
 })();

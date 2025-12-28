@@ -2,7 +2,7 @@
     const token = localStorage.getItem("token");
     
     if (!token) {
-        window.location.href = "/frontend/views/login.html";
+        window.location.href = "/views/login.html";
         return;
     }
 
@@ -13,10 +13,10 @@
 
         if (payload.exp && payload.exp < now) {
             localStorage.removeItem("token");
-            window.location.href = "/frontend/index.html";
+            window.location.href = "/index.html";
         }
     } catch (e) {
         localStorage.removeItem("token");
-        window.location.href = "/frontend/views/login.html";
+        window.location.href = "/views/login.html";
     }
 })();
