@@ -8,7 +8,7 @@ require __DIR__ . '/../../../vendor/autoload.php';
 if($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1'){
     define('BASE_URL', 'http://localhost/Exam-Scheduling-Room-Allocation-System/backend/');
 } else {
-    define('BASE_URL', 'https://esras-app-7uq3s.ondigitalocean.app/backend/');
+    define('BASE_URL', 'https://esras-app-5ejka.ondigitalocean.app/backend/');
 }
 
 $openapi = \OpenApi\Generator::scan([
