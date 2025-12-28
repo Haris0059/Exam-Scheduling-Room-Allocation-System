@@ -14,7 +14,7 @@
 
 /**
  * @OA\Server(
- *      url="http://localhost/Exam-Scheduling-Room-Allocation-System/backend",
+ *      url="https://esras-app-5ejka.ondigitalocean.app/backend",
  *      description="API server"
  * )
 */
