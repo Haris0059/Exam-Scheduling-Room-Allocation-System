@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseDao.php';
 
-class Facultydao extends BaseDao
+class FacultyDao extends BaseDao
 {
     protected $table_name;
 

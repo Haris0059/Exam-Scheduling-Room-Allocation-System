@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/BaseService.php';
 require_once __DIR__ . '/../dao/ExamDao.php';
+require_once __DIR__ . '/RoomAllocationService.php';
 
 class ExamService extends BaseService
 {
@@ -74,5 +75,47 @@ class ExamService extends BaseService
     {
         return $this->dao->getByType($type);
     }
+
+    public function addExamWithAllocation($data)
+    {
+        $this->validationCheck($data, 'add');
+
+        $allocationService = new RoomAllocationService();
+
+        $conn = $this->dao->getConnection();
+
+        $conn->beginTransaction();
+
+        try {
+            $exam = $this->dao->add([
+                'course_id' => $data['course_id'],
+                'date'      => $data['date'],
+                'start'     => $data['start'],
+                'end'       => $data['end'],
+                'type'      => $data['type']
+            ]);
+
+            $allocation = $allocationService->findAllocation(
+                $exam['id'],
+                $data['room_type']
+            );
+
+            foreach ($allocation->rooms as $room) {
+                $this->dao->assignRoom($exam['id'], $room->id);
+            }
+
+            $conn->commit();
+
+            return [
+                'exam'       => $exam,
+                'allocation' => $allocation
+            ];
+
+        } catch (Exception $e) {
+            $conn->rollBack();
+            throw $e;
+        }
+    }
+
 }
 ?>

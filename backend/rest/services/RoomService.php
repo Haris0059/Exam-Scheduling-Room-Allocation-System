@@ -51,15 +51,6 @@ class RoomService extends BaseService
 
     private function validateRoomUpdate($id, $data)
     {
-        // id
-        if (empty($id) || !is_numeric($id) || $id <= 0) {
-            throw new Exception("Invalid Room ID.");
-        }
-
-        if (!$this->dao->getById($id)) {
-            throw new Exception("Room with the given ID does not exist.");
-        }
-
         // reuse same rules
         $this->validateRoomData($data);
     }

@@ -37,9 +37,6 @@ class BaseDao
         return reset($results);
     }
 
-    /**
-     * Method used to add entity to database
-     */
     public function add($entity)
     {
         $query = "INSERT INTO " . $this->table_name . " (";
@@ -60,9 +57,6 @@ class BaseDao
         return $entity;
     }
 
-    /**
-     * Method used to update entity in database
-     */
     public function update($entity, $id, $id_column = "id")
     {
         $query = "UPDATE " . $this->table_name . " SET ";
@@ -77,10 +71,6 @@ class BaseDao
         return $entity;
     }
 
-
-    /**
-     * Method used to delete entity from database
-     */
     public function delete($id)
     {
         $stmt = $this->connection->prepare("DELETE FROM " . $this->table_name . " WHERE id = :id");
@@ -88,9 +78,6 @@ class BaseDao
         $stmt->execute();
     }
 
-    /**
-     * Method used to get all entities from the selected table
-     */
     public function getAll() {
         return $this->query('SELECT * FROM ' . $this->table_name, []);
         
@@ -99,5 +86,11 @@ class BaseDao
     public function getById($id) {
         return $this->query_unique('SELECT * FROM ' . $this->table_name . ' WHERE id=:id', ['id' => $id]);
     }
+
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
 }
 ?>

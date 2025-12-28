@@ -18,20 +18,4 @@ class AuthDao extends BaseDao {
         $sql = "SELECT * FROM employees WHERE id = :id";
         return $this->query_unique($sql, ['id' => $id]);
     }
-
-    // FIRST LOGIN CHECK
-    public function is_password_null($user_id) {
-        $sql = "SELECT password FROM employees WHERE id = :id";
-        $user = $this->query_unique($sql, ['id' => $user_id]);
-        return empty($user['password']);
-    }
-
-    // SET PASSWORD (ONLY ONCE)
-    public function set_password($user_id, $hashed_password) {
-        $sql = "UPDATE employees SET password = :password WHERE id = :id";
-        return $this->query($sql, [
-            'password' => $hashed_password,
-            'id' => $user_id
-        ]);
-    }
 }

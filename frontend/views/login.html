@@ -119,94 +119,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/esras.min.js"></script>
+    <script src="../js/login.js"></script>
 
     <!-- Toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
-    <script>
-    $(function () {
-    
-        $('#loginForm').on('submit', function (e) {
-            e.preventDefault();
-                
-            const email = $('#email').val().trim();
-            const password = $('#password').val().trim();
-                
-            $.ajax({
-                url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/login",
-                method: "POST",
-                data: { email, password },
-                success: function (response) {
-                
-                    // FIRST LOGIN → OPEN MODAL
-                    if (response.status === "password_required") {
-                        window.tempUserId = response.data.user_id;
-                    
-                        $('#setPasswordModal').modal({
-                            backdrop: 'static',
-                            keyboard: false,
-                            show: true
-                        });
-                        return;
-                    }
-                
-                    // NORMAL LOGIN
-                    localStorage.setItem("token", response.data.token);
-                    window.location.href =
-                        "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
-                },
-                error: function () {
-                    toastr.error("Invalid email or password");
-                }
-            });
-        });
 
-    
-    
-        $('#setPasswordForm').on('submit', function (e) {
-            e.preventDefault();
-
-            const pass1 = $('#firstTimePassword').val().trim();
-            const pass2 = $('#firstTimeRepeatPassword').val().trim();
-
-            if (!pass1 || !pass2) {
-                toastr.error("All fields are required");
-                return;
-            }
-        
-            if (pass1.length < 8) {
-                toastr.error("Password must be at least 8 characters");
-                return;
-            }
-        
-            if (pass1 !== pass2) {
-                toastr.error("Passwords do not match");
-                return;
-            }
-        
-            $.ajax({
-                url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/set-password",
-                method: "POST",
-                data: {
-                    user_id: window.tempUserId,
-                    password: pass1
-                },
-                success: function (res) {
-                    localStorage.setItem("token", res.data.token);
-                    $('#setPasswordModal').modal('hide');
-                
-                    window.location.href =
-                        "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
-                },
-                error: function (xhr) {
-                    toastr.error(xhr.responseText || "Failed to set password");
-                }
-            });
-        });
-    });
-
-    </script>
 
 
 
