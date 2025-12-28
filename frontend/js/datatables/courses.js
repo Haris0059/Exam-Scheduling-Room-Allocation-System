@@ -3,7 +3,7 @@ $(function () {
     // initialize DataTable for courses
     let table = $('#dataTableCourses').DataTable({
         ajax: {
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/courses",
+            url: "http://localhost/backend/courses",
             type: "GET",
             dataSrc: "data",
             headers: {
@@ -61,7 +61,7 @@ $(function () {
             serverSide: true,
 
             ajax: {
-                url: `http://localhost/Exam-Scheduling-Room-Allocation-System/backend/enrollments/course/${courseId}`,
+                url: `http://localhost/backend/enrollments/course/${courseId}`,
                 type: "GET",
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")

@@ -17,7 +17,7 @@ $(function () {
 
             // CREATE EXAM
             $.ajax({
-                url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/exams",
+                url: "http://localhost/backend/exams",
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(payload),
@@ -34,7 +34,7 @@ $(function () {
 
                     // ALLOCATE ROOM
                     $.ajax({
-                        url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/allocate-exam",
+                        url: "http://localhost/backend/allocate-exam",
                         method: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({
@@ -58,7 +58,7 @@ $(function () {
     // ✅ KEEP THIS — REQUIRED
     function loadCourses() {
         $.ajax({
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/courses",
+            url: "http://localhost/backend/courses",
             method: "GET",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")

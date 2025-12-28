@@ -12,7 +12,7 @@ $(function () {
         }
             
         $.ajax({
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/login",
+            url: "http://localhost/backend/auth/login",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({ email, password }),
@@ -27,7 +27,7 @@ $(function () {
                     toastr.success("Login successful!");
                     
                     setTimeout(() => {
-                        window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
+                        window.location.href = "/frontend/index.html";
                     }, 500);
                 } else {
                     toastr.error("Unexpected response from server");
