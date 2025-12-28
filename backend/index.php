@@ -83,5 +83,12 @@ Flight::route('/', function(){
    echo 'Exam Scheduling and Room Allocation System API is running!';
 });
 
+Flight::route('OPTIONS /*', function() {
+    header("Access-Control-Allow-Origin: https://esras-app-5ejka.ondigitalocean.app");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    exit;
+});
+
 Flight::start();  //start FlightPHP
 ?>
