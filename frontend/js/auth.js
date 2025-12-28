@@ -2,7 +2,7 @@
     const token = localStorage.getItem("token");
     
     if (!token) {
-        window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/views/login.html";
+        window.location.href = "/frontend/views/login.html";
         return;
     }
 
@@ -13,10 +13,10 @@
 
         if (payload.exp && payload.exp < now) {
             localStorage.removeItem("token");
-            window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/index.html";
+            window.location.href = "/frontend/index.html";
         }
     } catch (e) {
         localStorage.removeItem("token");
-        window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/views/login.html";
+        window.location.href = "/frontend/views/login.html";
     }
 })();

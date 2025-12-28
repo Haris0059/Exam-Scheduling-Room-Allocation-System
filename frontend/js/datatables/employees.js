@@ -7,7 +7,7 @@ $(function () {
     // FETCH ALL FACULTIES TO facultyMap AND USE THEM FOR DATATABLE INSTEAD OF ID's
     let facultyMap = {};
 
-    fetch("http://localhost/Exam-Scheduling-Room-Allocation-System/backend/faculty", {
+    fetch("http://localhost/backend/faculty", {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
         }
@@ -27,7 +27,7 @@ $(function () {
     function initEmployeesTable() {
         $('#dataTableEmployees').DataTable({
             ajax: {
-                url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/employees",
+                url: "http://localhost/backend/employees",
                 type: "GET",
                 dataSrc: "data",
                 headers: {
@@ -85,7 +85,7 @@ $(function () {
         }
 
         $.ajax({
-            url: `http://localhost/Exam-Scheduling-Room-Allocation-System/backend/departments/byFaculty/${facultyId}`,
+            url: `http://localhost/backend/departments/byFaculty/${facultyId}`,
             method: 'GET',
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
@@ -160,7 +160,7 @@ $(function () {
         };
     
         $.ajax({
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/register",
+            url: "http://localhost/backend/auth/register",
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token"),
@@ -211,7 +211,7 @@ $(function () {
         }
     
         $.ajax({
-            url: `http://localhost/Exam-Scheduling-Room-Allocation-System/backend/employees/${id}`,
+            url: `http://localhost/backend/employees/${id}`,
             method: "DELETE",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")

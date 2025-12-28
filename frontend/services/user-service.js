@@ -5,7 +5,7 @@ var UserService = {
 
         // If no token → redirect to login
         if (!token) {
-            window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/views/login.html";
+            window.location.href = "/frontend/views/login.html";
             return;
         }
 
@@ -15,7 +15,7 @@ var UserService = {
             user = Utils.parseJwt(token).user;
         } catch (e) {
             localStorage.removeItem("user_token");
-            window.location.href = "/Exam-Scheduling-Room-Allocation-System/frontend/views/login.html";
+            window.location.href = "/frontend/views/login.html";
 
             return;
         }

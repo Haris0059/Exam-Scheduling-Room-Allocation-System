@@ -24,7 +24,7 @@ window.initFullCalendar = function(selector) {
             today: 'Today'
         },
         events: function (info, successCallback, failureCallback) {
-            fetch("http://localhost/Exam-Scheduling-Room-Allocation-System/backend/exams", {
+            fetch("http://localhost/backend/exams", {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }

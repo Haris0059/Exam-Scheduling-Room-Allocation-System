@@ -8,7 +8,7 @@ $(function () {
 
     let table = $('#dataTableRooms').DataTable({
         ajax: {
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/rooms",
+            url: "http://localhost/backend/rooms",
             type: "GET",
             dataSrc: "data",
             headers: {
@@ -114,7 +114,7 @@ $(function () {
         };
 
         $.ajax({
-            url: `http://localhost/Exam-Scheduling-Room-Allocation-System/backend/rooms/${id}`,
+            url: `http://localhost/backend/rooms/${id}`,
             method: "PUT",
             contentType: "application/json",
             headers: {
@@ -152,7 +152,7 @@ $(function () {
         if (!id) return;
 
         $.ajax({
-            url: `http://localhost/Exam-Scheduling-Room-Allocation-System/backend/rooms/${id}`,
+            url: `http://localhost/backend/rooms/${id}`,
             method: "DELETE",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
@@ -198,7 +198,7 @@ $(function () {
         }
 
         $.ajax({
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/rooms",
+            url: "http://localhost/backend/rooms",
             method: "POST",
             contentType: "application/json",
             headers: {
