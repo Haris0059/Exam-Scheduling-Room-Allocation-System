@@ -7,7 +7,7 @@ $(function () {
     // FETCH ALL FACULTIES TO facultyMap AND USE THEM FOR DATATABLE INSTEAD OF ID's
     let facultyMap = {};
 
-    fetch("http://localhost/backend/faculty", {
+    fetch("http://esras-app-5ejka.ondigitalocean.app/backend/faculty", {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
         }
@@ -27,7 +27,7 @@ $(function () {
     function initEmployeesTable() {
         $('#dataTableEmployees').DataTable({
             ajax: {
-                url: "http://localhost/backend/employees",
+                url: "http://esras-app-5ejka.ondigitalocean.app/backend/employees",
                 type: "GET",
                 dataSrc: "data",
                 headers: {
@@ -85,7 +85,7 @@ $(function () {
         }
 
         $.ajax({
-            url: `http://localhost/backend/departments/byFaculty/${facultyId}`,
+            url: `http://esras-app-5ejka.ondigitalocean.app/backend/departments/byFaculty/${facultyId}`,
             method: 'GET',
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
