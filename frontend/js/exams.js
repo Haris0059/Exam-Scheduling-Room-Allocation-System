@@ -17,7 +17,7 @@ $(function () {
 
             // CREATE EXAM
             $.ajax({
-                url: "http://localhost/backend/exams",
+                url: "https://esras-app-5ejka.ondigitalocean.app/backend/exams",
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(payload),
@@ -34,7 +34,7 @@ $(function () {
 
                     // ALLOCATE ROOM
                     $.ajax({
-                        url: "http://localhost/backend/allocate-exam",
+                        url: "https://esras-app-5ejka.ondigitalocean.app/backend/allocate-exam",
                         method: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({

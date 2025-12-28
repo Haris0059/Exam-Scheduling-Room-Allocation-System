@@ -12,7 +12,7 @@ $(function () {
         }
             
         $.ajax({
-            url: "http://localhost/backend/auth/login",
+            url: "https://esras-app-5ejka.ondigitalocean.app/backend/auth/login",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({ email, password }),

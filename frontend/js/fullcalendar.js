@@ -24,7 +24,7 @@ window.initFullCalendar = function(selector) {
             today: 'Today'
         },
         events: function (info, successCallback, failureCallback) {
-            fetch("http://localhost/backend/exams", {
+            fetch("https://esras-app-5ejka.ondigitalocean.app/backend/exams", {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }

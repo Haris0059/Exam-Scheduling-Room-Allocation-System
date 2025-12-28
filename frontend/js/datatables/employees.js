@@ -160,7 +160,7 @@ $(function () {
         };
     
         $.ajax({
-            url: "http://localhost/backend/auth/register",
+            url: "https://esras-app-5ejka.ondigitalocean.app/backend/auth/register",
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token"),
@@ -211,7 +211,7 @@ $(function () {
         }
     
         $.ajax({
-            url: `http://localhost/backend/employees/${id}`,
+            url: `https://esras-app-5ejka.ondigitalocean.app/backend/employees/${id}`,
             method: "DELETE",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
