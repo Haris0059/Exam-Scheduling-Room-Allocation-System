@@ -5,12 +5,77 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class AuthService {
-   private $auth_dao;
+    private $auth_dao;
 
     public function __construct() {
         $this->auth_dao = new AuthDao();
     }
 
+    /**
+     * REGISTER NEW EMPLOYEE (Admin creates employee with password)
+     */
+    public function register($entity) {
+        // 1. Validate required fields
+        if (empty($entity['email'])) {
+            throw new Exception("Email is required");
+        }
+
+        if (empty($entity['password'])) {
+            throw new Exception("Password is required");
+        }
+
+        if (empty($entity['first_name'])) {
+            throw new Exception("First name is required");
+        }
+
+        if (empty($entity['last_name'])) {
+            throw new Exception("Last name is required");
+        }
+
+        if (empty($entity['role'])) {
+            throw new Exception("Role is required");
+        }
+
+        if (empty($entity['faculty_id'])) {
+            throw new Exception("Faculty is required");
+        }
+
+        if (empty($entity['department_id'])) {
+            throw new Exception("Department is required");
+        }
+
+        // 2. Validate password strength
+        if (strlen($entity['password']) < 6) {
+            throw new Exception("Password must be at least 6 characters long");
+        }
+
+        // 3. Check if email already exists
+        $existingUser = $this->auth_dao->get_user_by_email($entity['email']);
+        if ($existingUser) {
+            throw new Exception("Email already exists");
+        }
+
+        // 4. Hash the password
+        $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
+
+        // 5. Insert into database
+        try {
+            $id = $this->auth_dao->add($entity);
+            
+            if (!$id) {
+                throw new Exception("Failed to create employee");
+            }
+            
+            return ['id' => $id, 'message' => 'Employee registered successfully'];
+            
+        } catch (Exception $e) {
+            throw new Exception("Failed to create employee: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * LOGIN
+     */
     public function login($entity) {
         if (empty($entity['email'])) {
             throw new Exception("Email is required");
@@ -60,7 +125,9 @@ class AuthService {
         ];
     }
 
-    // CURRENT USER
+    /**
+     * GET CURRENT USER
+     */
     public function get_current_user() {
         $headers = getallheaders();
         if (!isset($headers['Authorization'])) {
@@ -86,3 +153,4 @@ class AuthService {
         return $user;
     }
 }
+?>

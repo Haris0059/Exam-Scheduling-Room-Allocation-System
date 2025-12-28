@@ -4,7 +4,6 @@ $(function () {
         loadDepartmentsByFaculty($(this).val());
     });
 
-
     // FETCH ALL FACULTIES TO facultyMap AND USE THEM FOR DATATABLE INSTEAD OF ID's
     let facultyMap = {};
 
@@ -70,7 +69,6 @@ $(function () {
                             </a>
                         `;
                     }
-
                 }
             ]
         });
@@ -113,36 +111,64 @@ $(function () {
         });
     }
 
-    // ADD EMPLOYEE
+    // ADD EMPLOYEE WITH PASSWORD VALIDATION
     $('#addEmployeeForm').on('submit', function (e) {
         e.preventDefault();
     
+        const password = $('#password').val().trim();
+        const repeatPassword = $('#repeatPassword').val().trim();
+        
+        // Validate all fields are filled
+        const firstName = $('#firstName').val().trim();
+        const lastName = $('#lastName').val().trim();
+        const email = $('#email').val().trim();
+        const role = $('#role').val();
+        const facultyId = $('#faculty').val();
+        const departmentId = $('#department').val();
+
+        if (!firstName || !lastName || !email || !role || !facultyId || !departmentId) {
+            toastr.error("All fields are required");
+            return;
+        }
+
+        // Validate password fields
+        if (!password || !repeatPassword) {
+            toastr.error("Password fields cannot be empty");
+            return;
+        }
+
+        // Check if passwords match
+        if (password !== repeatPassword) {
+            toastr.error("Passwords do not match");
+            return;
+        }
+
+        // Optional: Add password strength validation
+        if (password.length < 6) {
+            toastr.error("Password must be at least 6 characters long");
+            return;
+        }
+
         const payload = {
-            first_name: $('#firstName').val().trim(),
-            last_name: $('#lastName').val().trim(),
-            email: $('#email').val().trim(),
-            role: $('#role').val(),
-            faculty_id: $('#faculty').val(),
-            department_id: $('#department').val()
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+            role: role,
+            faculty_id: facultyId,
+            department_id: departmentId
         };
     
-        // basic frontend validation
-        for (let key in payload) {
-            if (!payload[key]) {
-                toastr.error("All fields are required");
-                return;
-            }
-        }
-    
         $.ajax({
-            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/employees",
+            url: "http://localhost/Exam-Scheduling-Room-Allocation-System/backend/auth/register",
             method: "POST",
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token")
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json"
             },
-            data: payload,
+            data: JSON.stringify(payload),
             success: function () {
-                toastr.success("Employee added successfully");
+                toastr.success("Employee registered successfully");
             
                 $('#addEmployeeModal').modal('hide');
                 $('#addEmployeeForm')[0].reset();
@@ -153,18 +179,26 @@ $(function () {
             },
             error: function (xhr) {
                 console.log(xhr.responseText);
-                toastr.error(xhr.responseText || "Failed to add employee");
+                
+                // Try to parse error message
+                let errorMsg = "Failed to register employee";
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    errorMsg = response.message || response.error || errorMsg;
+                } catch (e) {
+                    errorMsg = xhr.responseText || errorMsg;
+                }
+                
+                toastr.error(errorMsg);
             }
         });
     });
 
-    // ROOM DELETE
+    // EMPLOYEE DELETE
     let employeeIdToDelete = null;
 
     $(document).on("click", ".remove-employee", function () {
         employeeIdToDelete = $(this).data("id");
-
-        // store it on modal as well (optional, but clean)
         $("#removeEmployeeModal").data("id", employeeIdToDelete);
     });
 
@@ -189,10 +223,15 @@ $(function () {
                 $('#dataTableEmployees').DataTable().ajax.reload(null, false);
             },
             error: function (xhr) {
-                toastr.error(xhr.responseText || "Failed to remove employee");
+                let errorMsg = "Failed to remove employee";
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    errorMsg = response.message || response.error || errorMsg;
+                } catch (e) {
+                    errorMsg = xhr.responseText || errorMsg;
+                }
+                toastr.error(errorMsg);
             }
         });
     });
-
-    
 });

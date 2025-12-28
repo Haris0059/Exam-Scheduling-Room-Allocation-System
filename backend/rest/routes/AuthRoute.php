@@ -32,6 +32,50 @@ Flight::group('/auth', function () {
         }
     });
 
+    /**
+     * @OA\Post(
+     *      path="/auth/register",
+     *      tags={"auth"},
+     *      summary="Register new employee (Admin only)",
+     *      security={{"ApiKey": {}}},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"first_name","last_name","email","password","role","faculty_id","department_id"},
+     *              @OA\Property(property="first_name", type="string", example="John"),
+     *              @OA\Property(property="last_name", type="string", example="Doe"),
+     *              @OA\Property(property="email", type="string", example="john.doe@university.com"),
+     *              @OA\Property(property="password", type="string", example="StrongPassword123"),
+     *              @OA\Property(property="role", type="string", example="professor"),
+     *              @OA\Property(property="faculty_id", type="integer", example=1),
+     *              @OA\Property(property="department_id", type="integer", example=2)
+     *          )
+     *      ),
+     *      @OA\Response(response=200, description="Employee registered successfully"),
+     *      @OA\Response(response=400, description="Validation error"),
+     *      @OA\Response(response=401, description="Unauthorized")
+     * )
+     */
+    Flight::route('POST /register', function () {
+        try {
+            $user = Flight::auth_service()->get_current_user();
+            if ($user['role'] !== 'admin') {
+                Flight::halt(403, 'Only admins can register new employees');
+            }
+
+            $data = Flight::request()->data->getData();
+            $newEmployee = Flight::auth_service()->register($data);
+
+            Flight::json([
+                'status' => 'success',
+                'message' => 'Employee registered successfully',
+                'data' => $newEmployee
+            ]);
+
+        } catch (Exception $e) {
+            Flight::halt(400, $e->getMessage());
+        }
+    });
 
     /**
      * @OA\Post(
@@ -61,7 +105,6 @@ Flight::group('/auth', function () {
         }
     });
 
-
     /**
      * @OA\Get(
      *     path="/auth/me",
@@ -82,3 +125,4 @@ Flight::group('/auth', function () {
     });
 
 });
+?>
