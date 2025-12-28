@@ -9,27 +9,32 @@ class Config
 {
     public static function DB_NAME()
     {
-        return 'esras'; 
+        return Config::get_env('DB_NAME', 'esras'); 
     }
     public static function DB_PORT()
     {
-        return  3306;
+        return Config::get_env('DB_PORT', '3306'); 
     }
     public static function DB_USER()
     {
-        return 'root';
+        return Config::get_env('DB_USER', 'root'); 
     }
     public static function DB_PASSWORD()
     {
-        return '12345';
+        return Config::get_env('DB_PASSWORD', '12345'); 
     }
     public static function DB_HOST()
     {
-        return 'localhost';
+        return Config::get_env('DB_HOST', 'localhost'); 
     }
 
     public static function JWT_SECRET() 
     {
-        return '6eecf4da014ac7f0f32376d266b1520e';
+        return Config::get_env('', '6eecf4da014ac7f0f32376d266b1520e');
     }
+
+    public static function get_env($name, $default){
+       return isset($_ENV[$name]) && trim($_ENV[$name]) != "" ? $_ENV[$name] : $default;
+   }
+
 }
